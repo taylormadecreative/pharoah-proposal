@@ -191,8 +191,6 @@ details[open] > .pdp-acc__c{animation:pdp-fade 260ms var(--ease-out)}
   .pdp-bar__meta{margin-top:2px;font-size:12px;color:var(--ink-2);white-space:nowrap}
   .pdp-bar .btn{flex:none;min-width:148px;min-height:48px;padding-inline:20px}
   /* The mockup flag rides above the bar, on the right, so it never sits on the price */
-  .sample-flag{left:auto;right:12px;transition:transform 260ms var(--ease-out)}
-  body.has-bar .sample-flag{transform:translateY(calc(-68px - env(safe-area-inset-bottom)))}
   .ftr{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 
   .pdp-more__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -232,7 +230,7 @@ details[open] > .pdp-acc__c{animation:pdp-fade 260ms var(--ease-out)}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .added,.added.is-on,.dr__scrim,.dr__panel,.viewer,.viewer__img,.pdp-bar,.sample-flag,.pm::before,.pm::after,.pdp-worn__photos img{transition:none}
+  .added,.added.is-on,.dr__scrim,.dr__panel,.viewer,.viewer__img,.pdp-bar,.pm::before,.pm::after,.pdp-worn__photos img{transition:none}
   .dr__panel{transform:none}
   .dr:not(.is-open) .dr__panel{opacity:0}
   .pdp-err:not(:empty),details[open] > .pdp-acc__c{animation:none}

@@ -73,8 +73,7 @@
       </div>
       <div class="ftr__sig" aria-hidden="true"><picture><source srcset="assets/img/stallions-still.png" media="(prefers-reduced-motion: reduce)"><img src="assets/img/stallions-run.gif" alt="" width="160" height="159" loading="lazy" decoding="async"></picture></div>
       <div class="ftr__base"><span>© 2026 Pharoah, New York</span><span>Mockup for discussion · sample products and prices</span></div>
-    </footer>
-    <p class="sample-flag" aria-hidden="true">Mockup · sample products</p>`;
+    </footer>`;
 
   const slotH = document.querySelector('[data-site-header]');
   const slotF = document.querySelector('[data-site-footer]');
