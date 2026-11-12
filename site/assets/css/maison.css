@@ -153,25 +153,38 @@ ul,ol{padding:0;list-style:none}
 .rv{opacity:0;transform:translateY(18px);transition:opacity 800ms var(--ease-out),transform 900ms var(--ease-out)}
 .rv.in{opacity:1;transform:none}
 html.no-js .rv{opacity:1;transform:none}
-/* The Pharoah Letter: a small card in the corner, no backdrop, never blocks the page */
-.letter{position:fixed;right:24px;bottom:24px;z-index:160;width:min(380px,calc(100vw - 32px));padding:30px 28px 22px;background:var(--paper);color:var(--ink);border:1px solid var(--line);box-shadow:0 22px 52px -20px rgb(20 18 19 / .32);opacity:0;transform:translateY(14px);transition:opacity 320ms var(--ease-out),transform 320ms var(--ease-out)}
-.letter.is-in{opacity:1;transform:none}
-.letter .display{font-size:clamp(28px,2.4vw,34px);line-height:1.06;margin:12px 0 10px}
-.letter__lede{max-width:30ch;font-size:13px;line-height:1.55;color:var(--ink-2)}
-.letter__form{display:flex;margin-top:20px;border-bottom:1px solid var(--ink)}
-.letter__form input{flex:1;min-width:0;border:0;background:none;padding:12px 0;font-size:13px;color:var(--ink)}
+/* The Pharoah Letter: centered over a dark backdrop, his campaign photo beside the sign-up (photo on top on phones) */
+html.letter-open,html.letter-open body{overflow:hidden}
+.letter-scrim{position:fixed;inset:0;z-index:180;touch-action:none;background:rgb(20 18 19 / .72);opacity:0;transition:opacity 320ms var(--ease-out)}
+.letter-scrim.is-in{opacity:1}
+.letter{position:fixed;left:50%;top:50%;z-index:181;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1fr);width:min(820px,calc(100vw - 48px));max-height:calc(100svh - 48px);overflow:auto;overscroll-behavior:contain;background:var(--paper);color:var(--ink);box-shadow:0 40px 90px -30px rgb(20 18 19 / .55);opacity:0;transform:translate(-50%,-50%) scale(.97);transition:opacity 320ms var(--ease-out),transform 360ms var(--ease-out)}
+.letter.is-in{opacity:1;transform:translate(-50%,-50%)}
+.letter:focus{outline:none}
+.letter__media{min-height:480px;background:var(--paper-2)}
+.letter__media img{width:100%;height:100%;object-fit:cover;object-position:56% 18%}
+.letter__body{display:grid;align-content:center;padding:56px 48px 40px}
+.letter .display{font-size:clamp(34px,3.4vw,46px);line-height:1.02;margin:14px 0 14px}
+.letter__lede{max-width:30ch;font-size:14px;line-height:1.6;color:var(--ink-2)}
+.letter__form{display:flex;margin-top:28px;border-bottom:1px solid var(--ink)}
+.letter__form input{flex:1;min-width:0;border:0;background:none;padding:14px 0;font-size:14px;color:var(--ink)}
 .letter__form input:focus{outline:none}
 .letter__form input[aria-invalid=true]::placeholder{color:var(--oxblood)}
-.letter__form button{border:0;background:none;padding:0 0 0 12px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer}
+.letter__form button{border:0;background:none;padding:0 0 0 14px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer}
 @media (hover:hover){.letter__form button:hover{color:var(--oxblood)}}
-.letter__fine{margin-top:12px;font-size:11px;color:var(--ink-2)}
-.letter__done{margin-top:20px;font-size:13px}
-.letter__x{position:absolute;top:8px;right:8px;display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer}
-.letter__x svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4}
+.letter__fine{margin-top:14px;font-size:11px;color:var(--ink-2)}
+.letter__done{margin-top:28px;font-size:14px}
+.letter__x{position:absolute;top:10px;right:10px;z-index:1;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgb(251 250 248 / .92);color:var(--ink);cursor:pointer}
+.letter__x svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4}
 .letter__x:active{transform:scale(.94)}
-@media (max-width:599px){.letter{left:12px;right:12px;bottom:12px;width:auto;padding:26px 20px 18px}}
+@media (max-width:719px){
+  .letter{grid-template-columns:1fr;width:calc(100vw - 32px)}
+  .letter__media{min-height:0;aspect-ratio:16/10}
+  .letter__media img{object-position:56% 20%}
+  .letter__body{padding:28px 22px 22px}
+  .letter .display{font-size:32px}
+}
 @media (prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
-  .mega,.mnav,.scrim,.hdr,.letter{transition:none}
-  .letter{transform:none}
+  .mega,.mnav,.scrim,.hdr,.letter,.letter-scrim{transition:none}
+  .letter{transform:translate(-50%,-50%)}
 }

@@ -148,29 +148,57 @@
   const news = document.querySelector('[data-news]');
   if (news) news.addEventListener('submit', (e) => { e.preventDefault(); news.innerHTML = '<p class="label" style="padding:12px 0">Thank you. You are on the list.</p>'; try { localStorage.setItem('ph-letter', 'joined'); } catch (err) { /* private mode */ } });
 
-  /* The Pharoah Letter pop-up: email capture, kept quiet. A small card, no backdrop, once per visitor. Never on Made to
-     Measure (the request form), never in the first 8 s; then at 35% of the page or 25 s. #letter shows it at once. */
+  /* The Pharoah Letter pop-up: email capture, centered over a dark backdrop, with his campaign photo. Once per visitor.
+     Never on Made to Measure (the request form), never in the first 8 s; then at 35% of the page or 25 s. #letter shows
+     it at once. Escape, the X or the backdrop closes it; while open the page can't scroll and Tab stays inside. */
   (() => {
     const KEY = 'ph-letter';
     let seen = null; try { seen = localStorage.getItem(KEY); } catch (e) { /* private mode: once per page view */ }
     const force = location.hash === '#letter';
     if (!force && (seen || document.body.dataset.page === 'mtm')) return;
-    const el = document.createElement('aside');
-    el.className = 'letter'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-labelledby', 'letter-title'); el.hidden = true;
+    const scrim = document.createElement('div');
+    scrim.className = 'letter-scrim'; scrim.hidden = true;
+    const el = document.createElement('div');
+    el.className = 'letter'; el.hidden = true; el.tabIndex = -1;
+    el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'letter-title');
     el.innerHTML = `
       <button class="letter__x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      <p class="label">The Pharoah Letter</p>
-      <h2 class="display" id="letter-title">First to the new collection.</h2>
-      <p class="letter__lede">New pieces, runway shows and where the house will be next.</p>
-      <form class="letter__form" novalidate><label class="vh" for="letter-email">Email</label><input id="letter-email" type="email" placeholder="Email address" autocomplete="email" required><button type="submit">Join</button></form>
-      <p class="letter__fine">Unsubscribe anytime.</p>`;
-    document.body.appendChild(el);
+      <figure class="letter__media"><img src="assets/img/letter.webp" alt="" width="760" height="1140" decoding="async"></figure>
+      <div class="letter__body">
+        <p class="label">The Pharoah Letter</p>
+        <h2 class="display" id="letter-title">First to the new collection.</h2>
+        <p class="letter__lede">New pieces, runway shows and where the house will be next.</p>
+        <form class="letter__form" novalidate><label class="vh" for="letter-email">Email</label><input id="letter-email" type="email" placeholder="Email address" autocomplete="email" required><button type="submit">Join</button></form>
+        <p class="letter__fine">Unsubscribe anytime.</p>
+      </div>`;
+    document.body.append(scrim, el);
     const remember = (v) => { try { localStorage.setItem(KEY, v); } catch (e) { /* ignore */ } };
+    const focusables = () => [...el.querySelectorAll('button, input')].filter((n) => !n.disabled && n.offsetParent !== null);
     let back = null;
-    const open = () => { if (!el.hidden) return; back = document.activeElement; el.hidden = false; requestAnimationFrame(() => el.classList.add('is-in')); };
-    const close = (v) => { el.classList.remove('is-in'); remember(v); window.setTimeout(() => { el.hidden = true; }, reduce ? 0 : 240); if (el.contains(document.activeElement) && back && back.focus) back.focus(); };
+    const open = () => {
+      if (!el.hidden) return;
+      back = document.activeElement;
+      scrim.hidden = false; el.hidden = false;
+      document.documentElement.classList.add('letter-open');
+      requestAnimationFrame(() => { scrim.classList.add('is-in'); el.classList.add('is-in'); el.focus({ preventScroll: true }); });
+    };
+    const close = (v) => {
+      remember(v);
+      scrim.classList.remove('is-in'); el.classList.remove('is-in');
+      document.documentElement.classList.remove('letter-open');
+      window.setTimeout(() => { scrim.hidden = true; el.hidden = true; }, reduce ? 0 : 280);
+      if (back && back.focus) back.focus({ preventScroll: true });
+    };
     el.querySelector('.letter__x').addEventListener('click', () => close('dismissed'));
-    el.addEventListener('keydown', (e) => { if (e.key === 'Escape') close('dismissed'); });
+    scrim.addEventListener('click', () => close('dismissed'));
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { close('dismissed'); return; }
+      if (e.key !== 'Tab') return;
+      const f = focusables(); if (!f.length) return;
+      const first = f[0]; const last = f[f.length - 1];
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     el.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
       const input = el.querySelector('input');
