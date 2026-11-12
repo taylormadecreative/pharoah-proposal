@@ -1,0 +1,50 @@
+/* Made to Measure: Tom Ford's private-appointment page, in the house's marks. The events band is the oxblood moment. */
+.m-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:calc(100svh - var(--header-h))}
+.m-hero__media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5}
+.m-hero__copy{display:grid;align-content:center;gap:22px;padding:clamp(40px,6vw,96px) var(--gutter)}
+.m-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+@media (max-width:899px){.m-hero{grid-template-columns:1fr;min-height:0}.m-hero__media img{aspect-ratio:4/5}}
+
+.m-process{padding-block:clamp(72px,9vw,128px)}
+.m-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px);margin-top:32px;border-top:1px solid var(--line)}
+.m-steps li{display:grid;align-content:start;gap:12px;padding-top:24px}
+.m-steps__no{font-size:11px;font-weight:500;letter-spacing:.14em;color:var(--ink-2)}
+.m-steps .display{font-size:clamp(28px,2.8vw,40px)}
+.m-steps p{color:var(--ink-2);max-width:34ch}
+@media (max-width:767px){.m-steps{grid-template-columns:1fr}}
+
+.m-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.m-details img{width:100%;aspect-ratio:9/4;object-fit:cover}
+@media (max-width:767px){.m-details{grid-template-columns:1fr}}
+
+.m-request{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);padding-block:clamp(72px,9vw,128px)}
+.m-request__intro{display:grid;align-content:start;gap:18px;position:sticky;top:calc(var(--header-h) + 32px)}
+.m-form{display:grid;gap:22px}
+.m-form__row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.m-field{display:grid;gap:8px}
+.m-field input,.m-field select,.m-field textarea{width:100%;min-height:46px;padding:10px 0;border:0;border-bottom:1px solid var(--ink);border-radius:0;background:transparent;font-size:15px;appearance:none;-webkit-appearance:none}
+.m-field select{background:linear-gradient(45deg,transparent 50%,var(--ink) 50%) right 6px center/6px 6px no-repeat,linear-gradient(-45deg,transparent 50%,var(--ink) 50%) right 0 center/6px 6px no-repeat;padding-right:24px}
+.m-field textarea{resize:vertical;min-height:90px}
+.m-field :is(input,select,textarea):focus{outline:none;border-bottom-width:2px}
+.m-field.is-bad :is(input,select){border-bottom-color:var(--oxblood)}
+.m-field.is-bad .label{color:var(--oxblood)}
+.m-note{font-size:11px;color:var(--ink-2)}
+.m-steer{display:grid;gap:10px;padding:18px 20px;background:var(--paper-2);border-left:0}
+.m-steer p{max-width:52ch}
+.m-error{font-size:13px;color:var(--oxblood)}
+.m-done{display:grid;gap:12px;align-content:start}
+.m-done:focus{outline:none}
+.m-done__mark img{display:block;width:64px;height:auto;margin-bottom:4px} /* his horses, small: the request is on its way */
+@media (max-width:899px){.m-request{grid-template-columns:1fr}.m-request__intro{position:static}}
+@media (max-width:599px){.m-form__row{grid-template-columns:1fr}}
+
+.m-events{padding-block:clamp(72px,9vw,128px);background:var(--oxblood);color:var(--bone)}
+.m-events__head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 40px;margin-bottom:32px}
+.m-events__lede{max-width:40ch;color:rgb(242 233 226 / .85)}
+.m-events__list{border-top:1px solid rgb(242 233 226 / .3)}
+.m-events__list li{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) auto;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid rgb(242 233 226 / .3)}
+.m-events__city{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(28px,3vw,44px);line-height:1}
+.m-events__what,.m-events__when{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.m-events__when{color:rgb(242 233 226 / .75)}
+.m-events .link{border:0;background-color:transparent;cursor:pointer;color:var(--bone)}
+@media (max-width:767px){.m-events__list li{grid-template-columns:1fr auto;row-gap:6px}.m-events__what{grid-column:1}.m-events__when{grid-column:1}.m-events__list .link{grid-row:1;grid-column:2}}

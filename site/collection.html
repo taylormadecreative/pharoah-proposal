@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ready-to-Wear · Pharoah</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/maison.css">
+<link rel="stylesheet" href="assets/css/collection.css">
+</head>
+<body data-page="rtw">
+<div data-site-header></div>
+
+<main id="main" class="plp" tabindex="-1" data-plp data-view="default">
+  <header class="plp-head wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol data-crumbs></ol></nav>
+    <div class="plp-head__row">
+      <h1 class="plp-title" data-title>Ready-to-Wear</h1>
+      <p class="plp-count" data-count aria-live="polite"></p>
+    </div>
+    <nav class="plp-subnav" aria-label="Categories"><ul data-subnav></ul></nav>
+  </header>
+
+  <div class="plp-bar" data-bar>
+    <div class="plp-bar__in">
+      <button class="plp-filters" type="button" data-open-filters aria-haspopup="dialog" aria-controls="filters" aria-expanded="false">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 3h16M0 9h16"/><circle cx="5" cy="3" r="2"/><circle cx="11" cy="9" r="2"/></svg>
+        <span>Filters</span><span class="plp-filters__n" data-fcount></span>
+      </button>
+      <ul class="plp-active" data-active aria-label="Active filters"></ul>
+      <div class="plp-bar__r">
+        <label class="plp-sort">
+          <span class="plp-sort__k">Sort by</span>
+          <select data-sort>
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </label>
+        <div class="plp-view" role="group" aria-label="Grid size">
+          <button type="button" data-density="default" aria-pressed="true"><span class="vh">More per row</span><span class="ico ico--more" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+          <button type="button" data-density="large" aria-pressed="false"><span class="vh">Fewer per row</span><span class="ico ico--less" aria-hidden="true"><i></i><i></i></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="plp-body" aria-label="Products">
+    <div class="plp-grid" data-grid></div>
+  </section>
+</main>
+
+<div data-site-footer></div>
+
+<dialog class="fd" id="filters" data-drawer aria-labelledby="fd-title" aria-modal="true">
+  <div class="fd__scrim" data-close></div>
+  <div class="fd__panel">
+    <header class="fd__head">
+      <h2 class="title" id="fd-title">Filters</h2>
+      <button type="button" class="fd__x" data-close aria-label="Close filters">Close<span class="x" aria-hidden="true"></span></button>
+    </header>
+    <form class="fd__body" data-fform novalidate></form>
+    <footer class="fd__foot">
+      <button type="button" class="btn btn--ghost" data-fclear>Clear all</button>
+      <button type="button" class="btn" data-close data-show>Show results</button>
+    </footer>
+  </div>
+</dialog>
+
+<script src="assets/js/catalog.js"></script>
+<script>
+  /* Active nav item: Shoes for any shoe category, else Ready-to-Wear (set before maison.js builds the header). */
+  (() => {
+    const c = new URLSearchParams(location.search).get('c') || 'rtw';
+    const shoes = c === 'shoes' || PH.menu.shoes.items.some(([k]) => k === c);
+    document.body.dataset.page = shoes ? 'shoes' : 'rtw';
+  })();
+</script>
+<script src="assets/js/maison.js"></script>
+<script src="assets/js/collection.js"></script>
+</body>
+</html>

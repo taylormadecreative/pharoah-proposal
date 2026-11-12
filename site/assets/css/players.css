@@ -1,0 +1,146 @@
+/* Pharoah · Who Wears Pharoah (players.html) and the ambassador page (player.html?p=slug). Page layer on maison.css.
+   Roster with role filters and a lead portrait that turns through his looks; the ambassador page in the old
+   brand-ambassador shape: split hero, game-day strip, behind the scenes, shop his looks, more from the roster.
+   Motion: transform, opacity and clip-path only; UI responses stay under 300ms; reduced motion = still. */
+
+:root{--sec-pad:clamp(72px,9vw,136px)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* ---------- Shared: sections, entrance motion, placeholder frame ---------- */
+.sec{padding-top:var(--sec-pad)}
+.sec--last{padding-bottom:var(--sec-pad)}
+.sec__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 40px;margin-bottom:clamp(24px,3.2vw,48px)}
+.sec__title{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(32px,3.7vw,56px);line-height:1;letter-spacing:-.01em}
+.sec__note{max-width:46ch;color:var(--ink-2);font-size:13px;line-height:1.5}
+.w{display:inline-block}
+@media (prefers-reduced-motion:no-preference){.w{animation:rise 1100ms var(--ease-out) both;animation-delay:calc(200ms + var(--i,0) * 90ms)}}
+@keyframes rise{from{opacity:0;transform:translateY(.42em)}}
+.pc.rv,.pcards > li.rv,.strip__item.rv{transition-delay:calc(var(--i,0) * 80ms)}
+/* Text links keep their thin underline but get a 44px finger target on touch screens */
+@media (pointer:coarse){
+  main .link{position:relative}
+  main .link::after{content:"";position:absolute;inset:-15px -8px}
+}
+/* Wipe waits at opacity 0 (IntersectionObserver measures the clipped box, so a closed clip-path would never fire) */
+.rv.wipe{opacity:0;transform:none;transition:none}
+.rv.wipe.in{opacity:1;animation:wipe 1100ms var(--ease-io) both}
+@keyframes wipe{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+html.no-js .rv.wipe{opacity:1}
+
+.frame{position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:clip;background:var(--ink);color:var(--paper)}
+.frame > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;filter:grayscale(1);opacity:.32}
+.frame::after{content:"";position:absolute;inset:clamp(10px,1.6vw,20px);border:1px dashed rgb(251 250 248 / .34);pointer-events:none}
+.frame .tag{z-index:1;left:clamp(18px,2.4vw,32px);top:clamp(18px,2.4vw,32px);color:var(--ink)}
+.frame__label{position:relative;z-index:1;max-width:min(100%,34em);padding-inline:24px;text-align:center;font-size:12px;font-weight:500;letter-spacing:.16em;line-height:1.75;text-transform:uppercase}
+.frame__label::before{content:"";display:block;width:32px;height:1px;margin:0 auto 16px;background:currentColor;opacity:.55}
+
+/* ---------- Player cards (roster, more from the roster) and product grids ---------- */
+.pcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(32px,3.6vw,56px) clamp(12px,1.6vw,24px)}
+@media (max-width:767px){.pcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pc{min-width:0}
+.pc[hidden]{display:none!important}
+.pc__link{display:flex;flex-direction:column;gap:14px;height:100%}
+.pc__link:focus-visible{outline-offset:4px}
+.pc__media{position:relative;display:block;aspect-ratio:5/7;overflow:clip;background:var(--paper-2)}
+.pc__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 16%;transition:opacity 260ms var(--ease-out),transform 900ms var(--ease-out)}
+.pc__media:not([data-cycle]) img + img{opacity:0}
+@media (hover:hover) and (pointer:fine){
+  .pc__link:hover .pc__media:not([data-cycle]) img + img{opacity:1}
+  .pc__link:hover .pc__media img{transform:scale(1.02)}
+}
+.pc__body{display:grid;gap:4px}
+.pc__row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.pc__name{font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.pc__count{flex:none;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.pc__role{font-size:12px;color:var(--ink-2)}
+@media (max-width:767px){.pc__row{display:grid;gap:2px}.pc__name{font-size:12px}}
+
+/* Lead portrait: two columns by two rows, turning through his game-day looks */
+.pc__media[data-cycle] img{opacity:0;transition:opacity 1000ms var(--ease-out),transform 900ms var(--ease-out)}
+.pc__media[data-cycle] img.is-on{opacity:1}
+.pc__tick{position:absolute;top:12px;right:12px;z-index:1;padding:4px 7px;background:var(--paper);font-size:10px;font-weight:500;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+@media (min-width:768px){
+  .pc.is-lead{grid-column:span 2;grid-row:span 2}
+  .pc.is-lead .pc__media{flex:1 1 auto;min-height:0;aspect-ratio:auto}
+  .pc.is-lead .pc__name{font-size:15px}
+}
+@media (max-width:767px){.pc.is-lead{grid-column:1/-1}.pc.is-lead .pc__row{display:flex}}
+.pc.is-shown{animation:pc-in 280ms var(--ease-out) both;animation-delay:var(--d,0ms)}
+@keyframes pc-in{from{opacity:0;transform:translateY(10px)}}
+
+/* ---------- players.html ---------- */
+.r-intro{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px 56px;padding-block:clamp(44px,6.4vw,104px) clamp(32px,4vw,56px)}
+.r-intro__title{margin-top:clamp(14px,1.6vw,22px)}
+.r-intro__line{max-width:28ch;padding-bottom:.8em;font-size:15px;line-height:1.55;color:var(--ink-2)}
+@media (max-width:767px){.r-intro{grid-template-columns:1fr}.r-intro__line{padding-bottom:0}}
+.roster{padding-bottom:var(--sec-pad)}
+.roster__bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-block:16px;margin-bottom:clamp(28px,3.4vw,52px);border-block:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:10px;min-height:40px;padding:0 16px;border:1px solid rgb(20 18 19 / .26);background:transparent;color:var(--ink);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background-color 180ms var(--ease-out),color 180ms var(--ease-out),border-color 180ms var(--ease-out),transform 160ms var(--ease-out)}
+.chip__n{font-size:10px;letter-spacing:.06em;color:var(--ink-2);font-variant-numeric:tabular-nums;transition:color 180ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.chip:hover{border-color:var(--ink)}}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip[aria-pressed="true"] .chip__n{color:rgb(251 250 248 / .7)}
+.chip:active{transform:scale(.98)}
+@media (max-width:767px){.chip{min-height:44px;padding:0 14px}}
+
+/* ---------- player.html: hero ---------- */
+.ph{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"media back" "media id";min-height:min(calc(100vh - var(--header-h)),1000px);min-height:min(calc(100svh - var(--header-h)),1000px)}
+.ph__media{grid-area:media;position:relative;overflow:clip;background:var(--paper-2)}
+.ph__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 16%}
+.ph__back{grid-area:back;justify-self:start;display:inline-flex;align-items:center;gap:12px;min-height:44px;margin:clamp(16px,2.4vw,32px) var(--gutter) 0 clamp(28px,6vw,104px);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.ph__back svg{width:16px;height:10px;fill:none;stroke:currentColor;stroke-width:1.2;transition:transform 200ms var(--ease-out)}
+.ph__back:hover svg{transform:translateX(-3px)}
+.ph__id{grid-area:id;align-self:end;display:grid;justify-items:start;padding:32px var(--gutter) clamp(40px,7vw,104px) clamp(28px,6vw,104px)}
+.ph__role{margin-bottom:clamp(14px,1.6vw,22px)}
+.ph__name{font-size:clamp(40px,5.6vw,92px);font-weight:500;line-height:.94;letter-spacing:-.02em;text-transform:uppercase}
+.ph__count{margin-top:clamp(16px,1.8vw,24px);font-size:13px;color:var(--ink-2)}
+.ph__id .btn{margin-top:clamp(28px,3vw,44px)}
+@media (max-width:767px){
+  .ph{grid-template-columns:1fr;grid-template-rows:auto;grid-template-areas:"back" "media" "id";min-height:0}
+  .ph__back{margin:4px var(--gutter) 8px}
+  .ph__media{aspect-ratio:4/5}
+  .ph__id{padding:28px var(--gutter) 8px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .ph__media{animation:ph-open 1200ms var(--ease-io) both}
+  .ph__media img{animation:ph-settle 1800ms var(--ease-out) both}
+  .ph__back,.ph__role,.ph__count,.ph__id .btn{animation:fade-up 900ms var(--ease-out) both;animation-delay:480ms}
+}
+@keyframes ph-open{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@keyframes ph-settle{from{transform:scale(1.1)}to{transform:none}}
+@keyframes fade-up{from{opacity:0;transform:translateY(12px)}}
+
+/* ---------- player.html: game-day strip ---------- */
+.gd__head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:clamp(20px,2.6vw,36px)}
+.gd__ctrl{display:flex;align-items:center;gap:10px}
+.gd__ctrl[hidden]{display:none}
+.gd__count{min-width:68px;margin-right:6px;text-align:right;font-size:12px;font-weight:500;letter-spacing:.14em;font-variant-numeric:tabular-nums}
+.rbtn{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgb(20 18 19 / .28);border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer;transition:background-color 180ms var(--ease-out),color 180ms var(--ease-out),border-color 180ms var(--ease-out),opacity 180ms var(--ease-out),transform 160ms var(--ease-out)}
+.rbtn svg{width:16px;height:10px;fill:none;stroke:currentColor;stroke-width:1.2}
+@media (hover:hover) and (pointer:fine){.rbtn:not([aria-disabled="true"]):hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}}
+.rbtn:active{transform:scale(.98)}
+.rbtn[aria-disabled="true"]{opacity:.32;cursor:default}
+/* position:relative keeps absolutely positioned bits (maison's .vh text) inside the scroller, not on the page */
+.strip{--sg:clamp(10px,1.4vw,20px);--edge:max(var(--gutter),calc((100vw - var(--max)) / 2 + var(--gutter)));position:relative;display:flex;gap:var(--sg);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);padding-inline:var(--edge);scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip:focus-visible{outline-offset:-3px}
+.strip__item{flex:0 0 calc((100% - 3 * var(--sg)) / 3.5);min-width:0;scroll-snap-align:start}
+@media (max-width:1023px){.strip__item{flex-basis:calc((100% - 2 * var(--sg)) / 2.4)}}
+@media (max-width:767px){.strip__item{flex-basis:calc((100% - var(--sg)) / 1.2)}}
+.strip__media{position:relative;aspect-ratio:5/7;overflow:clip;background:var(--paper-2)}
+.strip__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.strip__cap{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:4px 12px;margin-top:12px}
+.strip__name{grid-column:1/-1;font-size:12px;color:var(--ink-2)}
+
+/* ---------- player.html: shop his looks ---------- */
+#shop{scroll-margin-top:calc(var(--header-h) - var(--sec-pad) + 32px)}
+.shl__empty{max-width:52ch;margin-bottom:clamp(28px,3.4vw,52px);font-size:15px;line-height:1.55;color:var(--ink-2)}
+.shl__sub{margin-bottom:clamp(18px,2vw,28px)}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  .rv.wipe,.rv.wipe.in{opacity:1;animation:none}
+  .pc__media img,.pc__media[data-cycle] img{transition:none}
+  .pc.is-shown{animation:none}
+}

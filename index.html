@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js')</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pharoah · Website Proposal</title>
+  <meta name="description" content="A website proposal for Pharoah, New York, from Taylormade Creative.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#7C2529">
+  <link rel="icon" href="site/assets/img/stallions-oxblood.png">
+  <link rel="preload" href="site/assets/video/pharoah-bw-wide.webp" as="image" fetchpriority="high">
+  <style>
+    @font-face{font-family:"Switzer";src:url("site/assets/fonts/switzer-400.woff2") format("woff2");font-weight:400;font-display:swap}
+    @font-face{font-family:"Switzer";src:url("site/assets/fonts/switzer-500.woff2") format("woff2");font-weight:500;font-display:swap}
+    @font-face{font-family:"Boska";src:url("site/assets/fonts/boska-300.woff2") format("woff2");font-weight:300;font-display:swap}
+    @font-face{font-family:"Boska";src:url("site/assets/fonts/boska-300i.woff2") format("woff2");font-weight:300;font-style:italic;font-display:swap}
+    :root{
+      --paper:#FBFAF8;--paper-2:#F2EFEA;--ink:#141213;--ink-2:#5F5A57;--line:rgb(20 18 19 / .12);
+      --oxblood:#7C2529;--bone:#F2E9E2;--bone-2:rgb(242 233 226 / .78);
+      --sans:"Switzer",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;--serif:"Boska",Georgia,serif;
+      --gutter:clamp(18px,4vw,64px);--max:1320px;--ease-out:cubic-bezier(.23,1,.32,1);
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip;scroll-behavior:smooth}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+    img,video{display:block;max-width:100%;height:auto}
+    a{color:inherit}
+    h1,h2,h3,p,ul,ol,figure{margin:0}
+    ul,ol{padding:0;list-style:none}
+    [hidden]{display:none!important}
+    :focus-visible{outline:1.5px solid currentColor;outline-offset:3px}
+    .wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+    .label{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+    .display{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(40px,5.4vw,84px);line-height:1;letter-spacing:-.01em}
+    .lede{font-size:clamp(16px,1.3vw,19px);color:var(--ink-2);max-width:56ch}
+    .logo{display:block;width:120px;aspect-ratio:2449/591;background:currentColor;-webkit-mask:url("site/assets/img/pharoah-script.svg") no-repeat center/contain;mask:url("site/assets/img/pharoah-script.svg") no-repeat center/contain}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:background-color 200ms var(--ease-out),color 200ms var(--ease-out),transform 160ms var(--ease-out)}
+    .btn:hover{background:transparent;color:var(--ink)}
+    .btn:active{transform:scale(.98)}
+    .btn--light{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+    .btn--light:hover{background:transparent;color:var(--bone)}
+    .js .rv{opacity:0;transform:translateY(22px);transition:opacity 900ms var(--ease-out),transform 1000ms var(--ease-out);transition-delay:calc(var(--d,0) * 80ms)}
+    .js .rv.in{opacity:1;transform:none}
+    [id]{scroll-margin-top:72px}
+    @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+    /* Print: everything visible, dark sections keep their color, no fixed bar, no video (its poster prints) */
+    @media print{
+      .top,.progress{display:none!important}
+      .js .rv{opacity:1!important;transform:none!important;transition:none!important}
+      .film video{display:none!important}
+      .sec--ink,.sec--ox,.sec--tint{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .tier,.shot,.week,.brief li,.map li{break-inside:avoid}
+      a[href]{text-decoration:none}
+    }
+
+    /* Top bar */
+    .top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding-inline:var(--gutter);background:color-mix(in oklab,var(--paper) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .top__brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+    .top__brand .logo{width:96px}
+    .top__for{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+    .top a.top__cta{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+    .progress{position:fixed;left:0;right:0;top:60px;z-index:21;height:2px;background:transparent}
+    .progress i{display:block;height:100%;background:var(--oxblood);transform:scaleX(0);transform-origin:left}
+
+    /* 01 Cover */
+    .cover{padding-top:clamp(40px,6vw,88px)}
+    .cover__head{display:grid;gap:22px;margin-bottom:clamp(32px,4vw,56px)}
+    .cover__head .display{font-size:clamp(46px,7.4vw,124px);max-width:15ch}
+    .cover__meta{display:flex;flex-wrap:wrap;gap:8px 28px;color:var(--ink-2)}
+    .film{position:relative;aspect-ratio:16/9;background:#0f0d0e;overflow:clip}
+    .film img,.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .film video{opacity:0;transition:opacity 800ms var(--ease-out)}
+    .film.is-on video{opacity:1}
+    .film__cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:14px 0 0;color:var(--ink-2)}
+
+    /* Sections */
+    .sec{padding-block:clamp(88px,11vw,168px)}
+    .sec__head{display:grid;gap:18px;margin-bottom:clamp(36px,5vw,64px);max-width:60ch}
+    .sec--ink{background:var(--ink);color:var(--paper)}
+    .sec--ink .lede{color:rgb(251 250 248 / .72)}
+    .sec--ox{background:var(--oxblood);color:var(--bone)}
+    .sec--ox .lede{color:var(--bone-2)}
+
+    /* 02 The brief, in his words */
+    .brief{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px)}
+    .brief li{display:grid;align-content:start;gap:10px;padding-top:22px;border-top:1px solid rgb(251 250 248 / .22)}
+    .brief h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(24px,2.2vw,32px);line-height:1.1}
+    .brief p{font-size:15px;color:rgb(251 250 248 / .74)}
+    @media (max-width:899px){.brief{grid-template-columns:1fr 1fr}}
+    @media (max-width:599px){.brief{grid-template-columns:1fr}}
+
+    /* 03 The mockup */
+    .shots{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(10px,1.4vw,20px)}
+    .shot{display:grid;gap:12px;align-content:start;text-decoration:none}
+    .shot img{width:100%;border:1px solid var(--line);background:var(--paper-2)}
+    .shot--wide{grid-column:span 4}
+    .shot--tall{grid-column:span 2}
+    .shot--half{grid-column:span 3}
+    .shot--full{grid-column:1 / -1}
+    .shot span{display:flex;justify-content:space-between;gap:12px}
+    .open{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;margin-top:clamp(32px,4vw,56px);padding-top:28px;border-top:1px solid var(--line)}
+    .open p{max-width:52ch;color:var(--ink-2)}
+    @media (max-width:767px){.shot--wide,.shot--tall,.shot--half,.shot--full{grid-column:1 / -1}}
+
+    /* 04 The map */
+    .map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+    .map li{display:grid;align-content:start;gap:10px;padding-top:18px;border-top:1px solid var(--ink)}
+    .map h3{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+    .map p{font-size:14px;color:var(--ink-2);line-height:1.7}
+    @media (max-width:899px){.map{grid-template-columns:1fr 1fr}}
+
+    /* 05 Tiers */
+    .tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);align-items:stretch}
+    .tier{position:relative;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:14px;padding:clamp(24px,2.6vw,36px);border:1px solid var(--line);background:var(--paper)}
+    .tier--pick{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+    .tier__flag{position:absolute;top:-1px;right:-1px;padding:7px 12px;background:var(--oxblood);color:var(--bone);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+    .tier__name{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(34px,3vw,46px);line-height:1}
+    .tier__price{font-size:clamp(30px,2.6vw,40px);font-weight:500;letter-spacing:-.01em;line-height:1}
+    .tier__note{font-size:13px;color:var(--ink-2)}
+    .tier--pick .tier__note{color:rgb(251 250 248 / .7)}
+    .tier ul{display:grid;align-content:start;gap:9px;padding-top:16px;border-top:1px solid var(--line)}
+    .tier--pick ul{border-color:rgb(251 250 248 / .2)}
+    .tier li{position:relative;padding-left:18px;font-size:14px;line-height:1.5}
+    .tier li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:currentColor}
+    .tier li.plus{font-weight:500}
+    .tier li.plus::before{display:none}
+    .tier .btn{margin-top:8px}
+    .tier--pick .btn{background:var(--bone);border-color:var(--bone);color:var(--ink)}
+    .tier--pick .btn:hover{background:transparent;color:var(--bone)}
+    .tiers-foot{margin-top:24px;font-size:13px;color:var(--ink-2);max-width:80ch}
+    @media (max-width:999px){.tiers{grid-template-columns:1fr}}
+
+    /* 06 Monthly */
+    .monthly{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+    .monthly__price{font-size:clamp(56px,7vw,104px);font-weight:500;letter-spacing:-.02em;line-height:1}
+    .monthly__price small{font-size:.28em;font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin-left:10px}
+    .monthly ul{display:grid;gap:0;border-top:1px solid rgb(242 233 226 / .3)}
+    .monthly li{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:18px 0;border-bottom:1px solid rgb(242 233 226 / .3)}
+    .monthly li b{font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;line-height:1.2;min-width:2ch}
+    .monthly li span{color:var(--bone-2)}
+    .monthly li strong{display:block;color:var(--bone);font-weight:500}
+    @media (max-width:899px){.monthly{grid-template-columns:1fr}}
+
+    /* 07 Timeline */
+    .weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;margin-top:8px}
+    .week{display:grid;align-content:start;gap:10px;padding:22px 20px 26px;background:var(--paper-2)}
+    .week b{font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--oxblood)}
+    .week h3{font-family:var(--serif);font-style:italic;font-weight:300;font-size:26px;line-height:1.1}
+    .week p{font-size:14px;color:var(--ink-2)}
+    .clock{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:22px;font-size:14px;color:var(--ink-2)}
+    @media (max-width:899px){.weeks{grid-template-columns:1fr 1fr}}
+    @media (max-width:599px){.weeks{grid-template-columns:1fr}}
+
+    /* 08 Start */
+    .start{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+    .start li{display:grid;align-content:start;gap:10px;padding-top:18px;border-top:1px solid var(--line)}
+    .start b{font-family:var(--serif);font-style:italic;font-weight:300;font-size:40px;line-height:1}
+    .start p{font-size:15px;color:var(--ink-2)}
+    @media (max-width:899px){.start{grid-template-columns:1fr 1fr}}
+    @media (max-width:599px){.start{grid-template-columns:1fr}}
+
+    /* 09 Close */
+    .close{display:grid;justify-items:center;text-align:center;gap:26px;padding-block:clamp(96px,12vw,180px)}
+    .close .logo{width:min(70vw,620px)}
+    .close p{color:var(--bone-2);max-width:48ch}
+    .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:22px var(--gutter);font-size:12px;color:var(--ink-2)}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="top__brand" href="#cover" aria-label="Back to the top"><i class="logo" aria-hidden="true"></i><span class="top__for">Website proposal</span></a>
+    <a class="top__cta" href="site/index.html">Open the mockup</a>
+  </header>
+  <div class="progress" aria-hidden="true"><i data-progress></i></div>
+
+  <main>
+    <!-- 01 Cover -->
+    <section class="cover wrap" id="cover">
+      <div class="cover__head">
+        <p class="label">Prepared for Pharoah Kirk · November 2026</p>
+        <h1 class="display">The house of Pharoah, built to the standard of the houses you study.</h1>
+        <div class="cover__meta label"><span>Taylormade Creative</span><span>Custom Shopify site</span><span>Live 30 days from your assets</span></div>
+      </div>
+      <figure>
+        <div class="film" data-film>
+          <img src="site/assets/video/pharoah-bw-wide.webp" alt="" width="1920" height="1080" fetchpriority="high">
+          <video muted loop playsinline preload="none" aria-hidden="true" data-src="site/assets/video/pharoah-bw-wide.mp4"></video>
+        </div>
+        <figcaption class="film__cap label"><span>Your New York film opens the home page, the way Prada leads with film</span><span>The runway edit can take its place</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- 02 What you asked for -->
+    <section class="sec sec--ink" aria-labelledby="brief-title">
+      <div class="wrap">
+        <div class="sec__head">
+          <p class="label">What you asked for</p>
+          <h2 class="display" id="brief-title">Tom Ford-level clothes, sold like it.</h2>
+          <p class="lede">Everything below comes from our call on November 11, with Stephania.</p>
+        </div>
+        <ul class="brief">
+          <li class="rv"><h3>Ready-to-wear and shoes now</h3><p>Leather jackets, suits and tuxedos, jackets, shirts, denim, pants and shorts, outerwear and evening. Shoes alongside. Accessories later this year. No bags, no underwear.</p></li>
+          <li class="rv" style="--d:1"><h3>A real catalog</h3><p>70 to 100 pieces ready, 15 to 20 shoes, 3 to 4 photos per product plus the model. Some pieces in more than one color. Filters for color, price and size, standard sizing.</p></li>
+          <li class="rv" style="--d:2"><h3>Film on the home page</h3><p>Prada's flow: film first, and every link takes the client somewhere clear.</p></li>
+          <li class="rv"><h3>Highlights</h3><p>The fall-winter collection, the runway show, lookbooks you can shop, the campaign, and pages for the players you work with, with their looks to shop.</p></li>
+          <li class="rv" style="--d:1"><h3>Made to Measure, filtered</h3><p>Like Tom Ford: request a private appointment, an intake form that screens for budget, and upcoming events for when you are on tour.</p></li>
+          <li class="rv" style="--d:2"><h3>Found, tracked, ongoing</h3><p>SEO and AI search on top of your meta descriptions. Google Business Profile, Meta Pixel and TikTok Pixel for your social ads. Assets in Google Drive. A relationship, not a handoff.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 The mockup -->
+    <section class="sec" aria-labelledby="mock-title">
+      <div class="wrap">
+        <div class="sec__head">
+          <p class="label">See it working</p>
+          <h2 class="display" id="mock-title">A clickable mockup, today.</h2>
+          <p class="lede">Built from your lookbook, your New York film and your NFL photos. Products and prices in it are samples; your real catalog loads from your product sheet. Where a category has no photo yet, your own models wear it as a concept edit, marked on the page, until your photography replaces it.</p>
+        </div>
+        <div class="shots">
+          <a class="shot shot--wide rv" href="site/index.html"><img src="shots/home.jpg" alt="The home page opens with your name cut from the page and your film playing inside the letters" width="1440" height="900" loading="lazy"><span class="label"><span>Home</span><span>Your name opens onto the film</span></span></a>
+          <a class="shot shot--tall rv" style="--d:1" href="site/index.html"><img src="shots/home-phone.jpg" alt="On a phone, a scroll later: the film fills the screen" width="390" height="844" loading="lazy"><span class="label"><span>On his phone</span><span>One scroll later</span></span></a>
+          <a class="shot shot--full rv" href="site/index.html#rtw-title"><img src="shots/home-rail.jpg" alt="Ready-to-wear: every category in one row that scrolls right, worn by your own models" width="1440" height="900" loading="lazy"><span class="label"><span>Ready-to-Wear</span><span>Every category, your models, scrolls right</span></span></a>
+          <a class="shot shot--half rv" href="site/collection.html?c=suits-tuxedos"><img src="shots/collection.jpg" alt="Suits and tuxedos with color, price and size filters" width="1440" height="900" loading="lazy"><span class="label"><span>Ready-to-Wear</span><span>Filters</span></span></a>
+          <a class="shot shot--half rv" style="--d:1" href="site/product.html?id=teal-db-suit"><img src="shots/product.jpg" alt="A product page with every angle, color and size" width="1440" height="900" loading="lazy"><span class="label"><span>Product page</span><span>Colors · sizes</span></span></a>
+          <a class="shot shot--half rv" href="site/highlights.html#lookbook"><img src="shots/highlights.jpg" alt="Fall-Winter 2026 highlights with the lookbook" width="1440" height="900" loading="lazy"><span class="label"><span>Highlights</span><span>Shop the lookbook</span></span></a>
+          <a class="shot shot--half rv" style="--d:1" href="site/player.html?p=kendrick-bourne"><img src="shots/player.jpg" alt="A player landing page" width="1440" height="900" loading="lazy"><span class="label"><span>Who Wears Pharoah</span><span>Shop his looks</span></span></a>
+          <a class="shot shot--wide rv" href="site/made-to-measure.html"><img src="shots/mtm.jpg" alt="Made to Measure with the private appointment request" width="1440" height="900" loading="lazy"><span class="label"><span>Made to Measure</span><span>Request · events</span></span></a>
+          <a class="shot shot--tall rv" style="--d:1" href="site/made-to-measure.html#request"><img src="shots/mtm-phone.jpg" alt="The request form on a phone" width="390" height="844" loading="lazy"><span class="label"><span>The intake form</span></span></a>
+        </div>
+        <div class="open">
+          <p>Scroll the home page and your name opens onto the film. Then click through it like a client would: the menu, a filter, a product, the lookbook, a player, a request.</p>
+          <a class="btn" href="site/index.html">Open the mockup</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 The map -->
+    <section class="sec sec--tint" style="background:var(--paper-2)" aria-labelledby="map-title">
+      <div class="wrap">
+        <div class="sec__head">
+          <p class="label">The site</p>
+          <h2 class="display" id="map-title">Organized like Saint Laurent.</h2>
+        </div>
+        <ul class="map">
+          <li class="rv"><h3>Ready-to-Wear</h3><p>Leather Jackets · Suits &amp; Tuxedos · Jackets · Shirts · Denim · Pants &amp; Shorts · Outerwear · Evening</p></li>
+          <li class="rv" style="--d:1"><h3>Shoes</h3><p>Your 15 to 20 styles, grouped the way you choose</p></li>
+          <li class="rv" style="--d:2"><h3>Highlights</h3><p>Fall-Winter 2026 · The Lookbook · The Runway Show · The Campaign · Who Wears Pharoah</p></li>
+          <li class="rv" style="--d:3"><h3>Made to Measure</h3><p>Request a Private Appointment · Upcoming Events · The Process</p></li>
+          <li class="rv" style="--d:4"><h3>Footer</h3><p>Client Services · Shipping &amp; Returns · Size Guide · Press · Community · The Pharoah Letter</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 Three ways -->
+    <section class="sec" id="tiers" aria-labelledby="tiers-title">
+      <div class="wrap">
+        <div class="sec__head">
+          <p class="label">The build</p>
+          <h2 class="display" id="tiers-title">Three ways to build it.</h2>
+          <p class="lede">Each one is a custom Shopify site in your look, not a template, loaded with your catalog and ready to sell.</p>
+        </div>
+        <div class="tiers">
+          <article class="tier rv">
+            <p class="label">Tier one</p>
+            <h3 class="tier__name">Foundation</h3>
+            <p class="tier__price">$7,500</p>
+            <ul>
+              <li>Custom Shopify theme in the Pharoah look</li>
+              <li>Home page led by your film</li>
+              <li>Ready-to-Wear and Shoes menus with color, price and size filters</li>
+              <li>Product pages with every angle, color options and sizes</li>
+              <li>Up to 100 products loaded with their colors, sizes and photos, from your sheet and Google Drive</li>
+              <li>Made to Measure page with the private appointment request form that screens for budget</li>
+              <li>About, Press, Contact, FAQ and Shipping &amp; Returns from your copy</li>
+              <li>Meta Pixel, TikTok Pixel and Google Analytics installed; Google Business Profile set up</li>
+              <li>2 rounds of revisions</li>
+            </ul>
+            <a class="btn" href="#start">Choose Foundation</a>
+          </article>
+          <article class="tier tier--pick rv" style="--d:1">
+            <span class="tier__flag">Recommended</span>
+            <p class="label">Tier two</p>
+            <h3 class="tier__name">Signature</h3>
+            <p class="tier__price">$10,500</p>
+            <ul>
+              <li class="plus">Everything in Foundation, plus:</li>
+              <li>Fall-Winter 2026 page with your campaign film and shop the look</li>
+              <li>The Lookbook: tap any look to see and shop every piece</li>
+              <li>The Runway Show page</li>
+              <li>Who Wears Pharoah: the roster page plus 3 player pages with behind the scenes, what he wore and shop it</li>
+              <li>Upcoming events calendar for your tour stops, linked to the request form</li>
+              <li>SEO and AI search launch setup: your titles and meta descriptions loaded, product structured data, sitemap and Google Search Console</li>
+            </ul>
+            <a class="btn" href="#start">Choose Signature</a>
+          </article>
+          <article class="tier rv" style="--d:2">
+            <p class="label">Tier three</p>
+            <h3 class="tier__name">Maison</h3>
+            <p class="tier__price">$14,500</p>
+            <ul>
+              <li class="plus">Everything in Signature, plus:</li>
+              <li>Up to 8 player pages</li>
+              <li>Launch ad kit: 6 short ads cut from your campaign and runway footage for Instagram, Facebook and TikTok, with pixel events checked</li>
+              <li>Accessories section built and waiting, ready when your accessories are photographed</li>
+              <li>3 rounds of revisions</li>
+            </ul>
+            <a class="btn" href="#start">Choose Maison</a>
+          </article>
+        </div>
+        <p class="tiers-foot">Not included in any tier: product photography, sites for other countries (France, Hong Kong), your Shopify plan and any paid apps, and ad spend. Each can be quoted when you are ready.</p>
+      </div>
+    </section>
+
+    <!-- 06 Monthly -->
+    <section class="sec sec--ox" aria-labelledby="monthly-title">
+      <div class="wrap monthly">
+        <div>
+          <p class="label">After launch</p>
+          <h2 class="display" id="monthly-title" style="margin:18px 0 26px">The monthly plan.</h2>
+          <p class="monthly__price">$1,000<small>per month</small></p>
+          <p class="lede" style="margin-top:22px">You said this is a relationship. This keeps the site moving with the collection, and keeps the person who built it working on it.</p>
+        </div>
+        <ul>
+          <li><b>01</b><span><strong>SEO and AI search</strong>Ongoing work on your products, collections and Google Business Profile so you are found on Google and by AI assistants.</span></li>
+          <li><b>02</b><span><strong>Content swaps</strong>New films, highlights, lookbooks and events on the site as you send them.</span></li>
+          <li><b>03</b><span><strong>New products</strong>New pieces and collections loaded as they are ready.</span></li>
+          <li><b>04</b><span><strong>Pixel and ads reporting</strong>A monthly look at what is selling and where your buyers come from.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 07 Timeline -->
+    <section class="sec" aria-labelledby="time-title">
+      <div class="wrap">
+        <div class="sec__head">
+          <p class="label">Timeline</p>
+          <h2 class="display" id="time-title">Live 30 days from your assets.</h2>
+          <p class="lede">The clock starts when your Google Drive and product sheet are complete.</p>
+        </div>
+        <ol class="weeks">
+          <li class="week rv"><b>Week 1</b><h3>Design</h3><p>Home, collection, product and Made to Measure pages signed off.</p></li>
+          <li class="week rv" style="--d:1"><b>Week 2</b><h3>Build</h3><p>The theme built in Shopify, Highlights and player pages for your tier.</p></li>
+          <li class="week rv" style="--d:2"><b>Week 3</b><h3>Load</h3><p>Products, colors, sizes and photos loaded; pixels and Google Business Profile set.</p></li>
+          <li class="week rv" style="--d:3"><b>Week 4</b><h3>Launch</h3><p>Your review, fixes, then the store goes live.</p></li>
+        </ol>
+        <p class="clock"><span>Assets complete by December 1</span><span>Live before January 1</span></p>
+      </div>
+    </section>
+
+    <!-- 08 How we start -->
+    <section class="sec" id="start" style="padding-top:0" aria-labelledby="start-title">
+      <div class="wrap">
+        <div class="sec__head">
+          <p class="label">How we start</p>
+          <h2 class="display" id="start-title">Four steps.</h2>
+        </div>
+        <ol class="start">
+          <li class="rv"><b>1</b><p>Choose your tier and reply to Nelson.</p></li>
+          <li class="rv" style="--d:1"><b>2</b><p>Sign and pay the 50% deposit through HoneyBook. The deposit is non-refundable; the balance is due at launch.</p></li>
+          <li class="rv" style="--d:2"><b>3</b><p>Share your Google Drive and product sheet. The folder setup is in our email.</p></li>
+          <li class="rv" style="--d:3"><b>4</b><p>Kickoff call. The monthly plan starts the month after launch and is billed at the start of each month.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 09 Close -->
+    <section class="sec--ox">
+      <div class="wrap close">
+        <i class="logo" aria-hidden="true"></i>
+        <p>Built with you, and kept with you.</p>
+        <a class="btn btn--light" href="site/index.html">Open the mockup</a>
+      </div>
+    </section>
+  </main>
+  <footer class="foot"><span>Taylormade Creative · Nelson Taylor · taylormadecreative.net</span><span>Proposal for Pharoah, New York · November 2026</span></footer>
+
+  <script>
+    (() => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Film: after the poster, muted, paused offscreen, never for reduced motion
+      const wrap = document.querySelector('[data-film]');
+      const v = wrap.querySelector('video');
+      if (!reduce) {
+        const start = () => { if (!v.src) v.src = v.dataset.src; const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+        v.addEventListener('playing', () => wrap.classList.add('is-on'));
+        new IntersectionObserver(([e]) => { if (e.isIntersecting) start(); else v.pause(); }, { threshold: 0.2 }).observe(wrap);
+      }
+      // Reveals
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+      document.querySelectorAll('.rv').forEach((el) => (reduce ? el.classList.add('in') : io.observe(el)));
+      // Shared #section links: land on the section after fonts and layout settle
+      if (location.hash) {
+        const go = () => { try { const el = document.querySelector(location.hash); if (el) el.scrollIntoView(); } catch (e) { /* not a selector */ } };
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(go));
+        addEventListener('load', go, { once: true });
+      }
+      // Progress
+      const bar = document.querySelector('[data-progress]');
+      let q = false;
+      const run = () => { q = false; const h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = `scaleX(${h > 0 ? (scrollY / h).toFixed(4) : 0})`; };
+      addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(run); } }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

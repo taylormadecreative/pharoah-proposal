@@ -1,0 +1,226 @@
+/* Pharoah · Highlights, Fall-Winter 2026. Page layer on maison.css.
+   Film first (shown whole at 16:9, nothing on it but its pause button), sticky section tabs, the shop-the-look
+   grid and drawer, the lookbook with "+" piece panels, the runway placeholder, the campaign grid.
+   Motion: transform, opacity and clip-path only; UI responses stay under 300ms; reduced motion = still. */
+
+:root{
+  --tabs-h:48px;
+  --sec-pad:clamp(72px,9vw,136px);
+  --ring:0 0 0 2px var(--ink),0 0 0 4px var(--paper);
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+html.is-locked{overflow:hidden}
+html.is-locked body{padding-right:var(--sbw,0px)}
+
+/* ---------- Film ---------- */
+.film__frame{
+  position:relative;margin-inline:auto;aspect-ratio:16/9;overflow:clip;background:var(--ink);
+  /* whole film in the first screen: full-bleed when the window is tall enough, framed on paper when it is not */
+  width:min(100%,calc((100vh - var(--header-h) - 72px) * 16 / 9));
+  width:min(100%,calc((100svh - var(--header-h) - 72px) * 16 / 9));
+}
+.film__poster,.film__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.film__video{opacity:0;transition:opacity 700ms var(--ease-out)}
+.film__video.is-on{opacity:1}
+.film__toggle{position:absolute;right:clamp(12px,1.8vw,24px);bottom:clamp(12px,1.8vw,24px);z-index:2;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px 0 16px;border:1px solid rgb(251 250 248 / .42);border-radius:999px;background:rgb(20 18 19 / .42);color:var(--paper);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background-color 200ms var(--ease-out),border-color 200ms var(--ease-out),transform 160ms var(--ease-out)}
+.film__toggle:hover{background:rgb(20 18 19 / .72);border-color:rgb(251 250 248 / .75)}
+.film__toggle:active{transform:scale(.98)}
+.film__toggle:focus-visible{outline:none;box-shadow:0 0 0 2px var(--paper)}
+.film__icon{width:12px;height:12px;fill:currentColor}
+.film__toggle[data-state="playing"] .film__icon--play,.film__toggle:not([data-state="playing"]) .film__icon--pause{display:none}
+html.no-js .film__toggle{display:none}
+@media (max-width:767px){.film__toggle{width:44px;padding:0;justify-content:center}.film__word{display:none}}
+@media (prefers-reduced-motion:no-preference){
+  .film__frame{animation:film-open 1300ms var(--ease-io) both}
+  .film__poster,.film__video{animation:film-settle 1900ms var(--ease-out) both}
+}
+@keyframes film-open{from{clip-path:inset(7% 9%)}to{clip-path:inset(0)}}
+@keyframes film-settle{from{transform:scale(1.08)}to{transform:none}}
+
+/* ---------- Title ---------- */
+.intro{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:14px 48px;padding-block:clamp(36px,5vw,72px) clamp(32px,4vw,56px)}
+.intro__line{max-width:30ch;padding-bottom:.55em;color:var(--ink-2);font-size:15px;line-height:1.55}
+@media (max-width:767px){.intro{grid-template-columns:1fr}.intro__line{padding-bottom:0}}
+.w{display:inline-block}
+@media (prefers-reduced-motion:no-preference){.w{animation:rise 1100ms var(--ease-out) both;animation-delay:calc(260ms + var(--i,0) * 110ms)}}
+@keyframes rise{from{opacity:0;transform:translateY(.42em)}}
+
+/* ---------- Sticky tabs ---------- */
+.tabs{position:sticky;top:var(--header-h);z-index:80;background:var(--paper);border-bottom:1px solid var(--line)}
+.tabs__list{position:relative;display:flex;justify-content:center;gap:clamp(24px,4vw,64px);height:var(--tabs-h);max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.tabs__link{display:inline-block;height:100%;line-height:var(--tabs-h);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;color:var(--ink-2);transition:color 200ms var(--ease-out)}
+.tabs__link:hover,.tabs__link[aria-current="true"]{color:var(--ink)}
+.tabs__link:focus-visible{outline-offset:-4px}
+.tabs__bar{position:absolute;left:0;bottom:-1px;width:1px;height:2px;background:var(--ink);transform-origin:0 50%;transform:scaleX(0);transition:transform 280ms var(--ease-out)}
+@media (max-width:767px){.tabs__list{justify-content:space-between;gap:8px}.tabs__link{min-width:44px;text-align:center}.tabs__more{display:none}}
+/* Text links keep their thin underline but get a 44px finger target on touch screens */
+@media (pointer:coarse){
+  main .link,.drawer .link{position:relative}
+  main .link::after,.drawer .link::after{content:"";position:absolute;inset:-15px -8px}
+}
+
+/* ---------- Sections ---------- */
+.sec{padding-top:var(--sec-pad)}
+.sec--last{padding-bottom:var(--sec-pad)}
+#shop,#lookbook,#runway,#campaign{scroll-margin-top:calc(var(--header-h) + var(--tabs-h) - var(--sec-pad) + 32px)}
+.sec__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 40px;margin-bottom:clamp(24px,3.2vw,48px)}
+.sec__title{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(32px,3.7vw,56px);line-height:1;letter-spacing:-.01em}
+.sec__note{max-width:46ch;color:var(--ink-2);font-size:13px;line-height:1.5}
+.hint-plus{position:relative;display:inline-block;width:22px;height:22px;margin:0 3px;vertical-align:-6px;border-radius:50%;background:var(--ink)}
+.hint-plus::before,.hint-plus::after{content:"";position:absolute;left:6px;right:6px;top:50%;height:1.5px;margin-top:-.75px;background:var(--paper)}
+.hint-plus::after{transform:rotate(90deg)}
+
+/* Reveals: maison's .rv for blocks, plus a top-down clip wipe for photographs (faces arrive first).
+   The wipe waits at opacity 0, not at a closed clip-path: IntersectionObserver measures the clipped box, so a
+   fully clipped photo would never be seen entering. The clip runs as an animation once .in lands. */
+.shop__item.rv{transition-delay:calc(var(--i,0) * 90ms)}
+.rv.wipe{opacity:0;transform:none;transition:none}
+.rv.wipe.in{opacity:1;animation:wipe 1100ms var(--ease-io) both;animation-delay:calc(var(--i,0) * 80ms)}
+@keyframes wipe{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+html.no-js .rv.wipe{opacity:1}
+
+/* ---------- Shop the Collection ---------- */
+.shop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,44px) clamp(12px,1.6vw,24px)}
+.shop__item{display:grid;align-content:start;gap:14px}
+.shop__open{position:relative;display:block;width:100%;aspect-ratio:2/3;padding:0;border:0;overflow:clip;background:var(--paper-2);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.shop__open img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 900ms var(--ease-out)}
+.shop__cta{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;background:var(--paper);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;transition:background-color 200ms var(--ease-out),color 200ms var(--ease-out),transform 160ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .shop__open:hover img{transform:scale(1.03)}
+  .shop__open:hover .shop__cta{background:var(--ink);color:var(--paper)}
+}
+.shop__open:active .shop__cta{transform:scale(.98)}
+.shop__open:focus-visible{outline:1.5px solid var(--ink);outline-offset:4px}
+.shop__meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
+.shop__pieces{font-size:12px;color:var(--ink-2)}
+.shop__note{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:12px;aspect-ratio:2/3;padding:clamp(18px,2.6vw,40px);background:var(--paper-2)}
+.shop__note-title{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(26px,2.7vw,42px);line-height:1.04}
+.shop__note-line{max-width:24ch;font-size:13px;color:var(--ink-2)}
+.shop__note .link{margin-top:6px}
+@media (max-width:767px){
+  .shop{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .shop__cta{left:8px;bottom:8px;min-height:44px;padding:0 12px;font-size:10px;letter-spacing:.12em}
+  .shop__meta{display:grid;gap:2px}
+}
+
+/* ---------- Shop-the-look drawer ---------- */
+.drawer{position:fixed;inset:0;z-index:160;overflow:hidden;visibility:hidden;transition:visibility 0s linear 220ms}
+.drawer.is-open{visibility:visible;transition-delay:0s}
+.drawer__scrim{position:absolute;inset:0;background:rgb(20 18 19 / .34);opacity:0;transition:opacity 200ms var(--ease-out)}
+.drawer.is-open .drawer__scrim{opacity:1;transition-duration:260ms}
+.drawer__panel{position:absolute;top:0;right:0;bottom:0;display:flex;flex-direction:column;width:min(100%,460px);background:var(--paper);box-shadow:-24px 0 64px rgb(20 18 19 / .12);transform:translateX(100%);transition:transform 200ms var(--ease-out)}
+.drawer.is-open .drawer__panel{transform:none;transition-duration:280ms}
+.drawer__panel:focus{outline:none}
+.drawer__head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 20px 18px 28px;border-bottom:1px solid var(--line)}
+.drawer__title{margin-top:6px}
+.drawer__close{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 8px 0 12px;border:0;background:none;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:transform 160ms var(--ease-out)}
+.drawer__close svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.4}
+.drawer__close:active{transform:scale(.98)}
+.drawer__body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:28px 28px 36px}
+.drawer__list{display:grid;gap:40px}
+.drawer__list--multi{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 16px}
+.drawer__item{display:grid;gap:16px}
+.drawer__foot{padding:18px 28px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+@media (max-width:767px){.drawer__head{padding:12px 8px 12px 16px}.drawer__body{padding:20px 16px 28px}.drawer__foot{padding-inline:16px}}
+
+/* ---------- The Lookbook ---------- */
+.lb{--stagger:clamp(0px,7vw,112px);--colgap:clamp(16px,2.6vw,40px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,5vw,80px) var(--colgap)}
+.lb:has(> .lb__item:last-child:nth-child(even)){padding-bottom:var(--stagger)}
+.lb__item{scroll-margin-top:calc(var(--header-h) + var(--tabs-h) + 24px)}
+.lb__item:nth-child(even){transform:translateY(var(--stagger))}
+.lb__item:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - var(--colgap) / 2);margin-top:var(--stagger)}
+.lb__fig{display:grid;gap:16px}
+.lb__media{position:relative;aspect-ratio:2/3;overflow:clip;background:var(--paper-2)}
+.lb__media > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lb__cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px}
+.lb__cap-name{font-size:12px;color:var(--ink-2)}
+
+/* "+" in the corner of each look: turns into a close mark and raises the piece panel above it */
+.lb__plus{position:absolute;right:16px;bottom:16px;z-index:2;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer;box-shadow:0 1px 2px rgb(20 18 19 / .16),0 6px 18px rgb(20 18 19 / .18);transition:background-color 200ms var(--ease-out),color 200ms var(--ease-out),transform 160ms var(--ease-out)}
+.lb__plus i{position:relative;width:14px;height:14px;transition:transform 220ms var(--ease-out)}
+.lb__plus i::before,.lb__plus i::after{content:"";position:absolute;left:0;top:50%;width:100%;height:1.5px;margin-top:-.75px;background:currentColor}
+.lb__plus i::after{transform:rotate(90deg)}
+.lb__plus[aria-expanded="true"]{background:var(--ink);color:var(--paper)}
+.lb__plus[aria-expanded="true"] i{transform:rotate(45deg)}
+@media (hover:hover) and (pointer:fine){.lb__plus:hover{background:var(--ink);color:var(--paper)}}
+.lb__plus:active{transform:scale(.98)}
+.lb__plus:focus-visible{outline:none;box-shadow:var(--ring)}
+.lb__plus::before{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 1.5px var(--paper);opacity:0;pointer-events:none}
+.lb__plus.is-hint::before{animation:ping 1500ms var(--ease-out) 3}
+@keyframes ping{0%{opacity:.95;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
+
+/* Closed = faded and hidden (never a closed clip-path: lazy loading would not see the thumbnails inside);
+   opening rises out of the button row with a clip animation, closing is a quick fade. */
+.lb__panel{position:absolute;left:16px;right:16px;bottom:72px;z-index:1;background:var(--paper);opacity:0;visibility:hidden;transition:opacity 160ms var(--ease-out),visibility 0s linear 160ms}
+.lb__panel.is-open{opacity:1;visibility:visible;transition:opacity 200ms var(--ease-out),visibility 0s;animation:panel-rise 260ms var(--ease-out) both}
+@keyframes panel-rise{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+.lb__panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 16px 12px;border-bottom:1px solid var(--line)}
+.lb__panel ul{padding:6px 0}
+.lb__panel li{opacity:0;transform:translateY(6px);transition:opacity 160ms var(--ease-out),transform 200ms var(--ease-out)}
+.lb__panel.is-open li{opacity:1;transform:none;transition-delay:calc(50ms + var(--k,0) * 30ms)}
+.lb__piece{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:14px;min-height:64px;padding:8px 16px;transition:background-color 160ms var(--ease-out)}
+.lb__piece:hover{background:var(--paper-2)}
+.lb__piece:focus-visible{outline-offset:-3px}
+.lb__piece img{width:44px;height:58px;object-fit:cover;background:var(--paper-2)}
+.lb__piece-text{display:grid;gap:2px;min-width:0}
+.lb__piece-name{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.lb__piece-meta{font-size:12px;color:var(--ink-2)}
+.lb__arrow{width:16px;height:10px;fill:none;stroke:currentColor;stroke-width:1.2;transition:transform 200ms var(--ease-out)}
+.lb__piece:hover .lb__arrow{transform:translateX(3px)}
+@media (max-width:767px){
+  .lb{grid-template-columns:1fr;--stagger:0px}
+  .lb__item:nth-child(even){transform:none}
+  .lb__item:last-child:nth-child(odd){justify-self:stretch;width:auto;margin-top:0}
+  .lb__plus{right:12px;bottom:12px}
+  .lb__panel{left:12px;right:12px;bottom:68px}
+}
+
+/* ---------- Placeholder frame (runway film not delivered yet) ---------- */
+.frame{position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:clip;background:var(--ink);color:var(--paper)}
+.frame > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(1);opacity:.34}
+.frame::after{content:"";position:absolute;inset:clamp(10px,1.6vw,20px);border:1px dashed rgb(251 250 248 / .34);pointer-events:none}
+.frame .tag{z-index:1;left:clamp(18px,2.4vw,32px);top:clamp(18px,2.4vw,32px);color:var(--ink)}
+.frame__label{position:relative;z-index:1;max-width:min(100%,34em);padding-inline:24px;text-align:center;font-size:12px;font-weight:500;letter-spacing:.16em;line-height:1.75;text-transform:uppercase}
+.frame__label::before{content:"";display:block;width:32px;height:1px;margin:0 auto 16px;background:currentColor;opacity:.55}
+
+/* ---------- The Campaign: 4-column editorial grid ----------
+   Portraits keep their 2:3 frame (one column by two rows; the opening frame two by four), details span two columns.
+   Row height comes from the column width, so no portrait is cropped. Phone: two columns, details full width. */
+.cg-wrap{container-type:inline-size}
+.cg{--g:clamp(8px,1.6vw,24px);--cw:calc((100cqi - 3 * var(--g)) / 4);--r:calc((var(--cw) * 1.5 - var(--g)) / 2);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:var(--r);gap:var(--g)}
+.cg__item{position:relative;overflow:clip;background:var(--paper-2)}
+.cg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
+.cg__item:nth-child(1){grid-column:1/3;grid-row:1/5}
+.cg__item:nth-child(2){grid-column:3/5;grid-row:1}
+.cg__item:nth-child(3){grid-column:3;grid-row:2/4}
+.cg__item:nth-child(4){grid-column:4;grid-row:2/4}
+.cg__item:nth-child(5){grid-column:3/5;grid-row:4}
+.cg__item:nth-child(6){grid-column:1;grid-row:5/7}
+.cg__item:nth-child(7){grid-column:2;grid-row:5/7}
+.cg__item:nth-child(8){grid-column:3/5;grid-row:5}
+.cg__item:nth-child(9){grid-column:3/5;grid-row:6}
+@media (max-width:767px){
+  .cg{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}
+  .cg__item:nth-child(n){grid-column:auto;grid-row:auto;aspect-ratio:2/3}
+  .cg__item:first-child,.cg__item.cg__item--detail{grid-column:1/-1}
+  .cg__item.cg__item--detail{aspect-ratio:9/4}
+}
+
+/* Scroll-linked drift inside the photo frames (progressive: browsers with scroll timelines only) */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .lb__media > img,.cg__item:not(.cg__item--detail) img{animation:drift linear both;animation-timeline:view();animation-range:cover}
+  }
+}
+@keyframes drift{from{transform:translateY(-2.5%) scale(1.06)}to{transform:translateY(2.5%) scale(1.06)}}
+
+/* ---------- Reduced motion: everything still, state changes instant or a short fade ---------- */
+@media (prefers-reduced-motion:reduce){
+  .rv.wipe,.rv.wipe.in{opacity:1;animation:none}
+  .tabs__bar,.film__video,.shop__open img,.lb__plus i{transition:none}
+  .drawer__panel{transform:none;opacity:0;transition:opacity 160ms linear}
+  .drawer.is-open .drawer__panel{opacity:1}
+  .lb__panel{transition:opacity 120ms linear,visibility 0s linear 120ms}
+  .lb__panel.is-open{transition:opacity 120ms linear,visibility 0s;animation:none}
+  .lb__panel li{opacity:1;transform:none;transition:none}
+}

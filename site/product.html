@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pharoah, New York</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/maison.css">
+<link rel="stylesheet" href="assets/css/product.css">
+</head>
+<body data-page="rtw">
+<div data-site-header></div>
+
+<main id="main" tabindex="-1">
+  <div class="pdp">
+    <section class="pdp-gallery" aria-label="Product images" data-gallery>
+      <div class="pdp-track" data-track></div>
+      <p class="pdp-counter" data-counter aria-hidden="true" hidden></p>
+    </section>
+
+    <section class="pdp-panel" aria-labelledby="pdp-name" data-panel>
+      <div class="pdp-panel__in">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol data-crumbs></ol></nav>
+        <h1 class="pdp-name" id="pdp-name" data-name></h1>
+        <p class="pdp-price" data-price></p>
+
+        <form class="pdp-form" data-form novalidate>
+          <fieldset class="pdp-opt">
+            <legend class="pdp-opt__k">Color <span class="pdp-opt__v" data-color-name></span></legend>
+            <div class="pdp-swatches" data-colors></div>
+          </fieldset>
+
+          <fieldset class="pdp-opt" data-size-fs aria-describedby="size-err">
+            <legend class="pdp-opt__k">Size</legend>
+            <button type="button" class="pdp-guide" data-guide aria-haspopup="dialog">Size guide</button>
+            <div class="pdp-sizes" data-sizes></div>
+            <p class="pdp-err" id="size-err" data-err aria-live="assertive"></p>
+          </fieldset>
+
+          <button class="btn btn--block pdp-add" type="submit" data-add>Add to bag</button>
+        </form>
+
+        <a class="link pdp-mtm" href="made-to-measure.html#request">Request Made to Measure</a>
+
+        <div class="pdp-acc">
+          <details open>
+            <summary>Details<span class="pm" aria-hidden="true"></span></summary>
+            <div class="pdp-acc__c"><p>Description, fabric and fit notes load from his product sheet.</p></div>
+          </details>
+          <details>
+            <summary>Size &amp; Fit<span class="pm" aria-hidden="true"></span></summary>
+            <div class="pdp-acc__c">
+              <p>Fit notes load from his product sheet.</p>
+              <button type="button" class="pdp-textbtn" data-guide aria-haspopup="dialog">View the size guide</button>
+            </div>
+          </details>
+          <details>
+            <summary>Shipping &amp; Returns<span class="pm" aria-hidden="true"></span></summary>
+            <div class="pdp-acc__c"><p>Shipping and returns load from his policies.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="pdp-worn" data-worn aria-labelledby="worn-title" hidden></section>
+  </div>
+
+  <section class="pdp-more" aria-labelledby="more-title">
+    <div class="pdp-more__head wrap">
+      <h2 class="title" id="more-title">You may also like</h2>
+      <a class="link" href="collection.html?c=rtw" data-more-link>View all</a>
+    </div>
+    <div class="pdp-more__grid" data-more></div>
+  </section>
+</main>
+
+<div data-site-footer></div>
+
+<!-- Phone: price and Add to bag stay within reach -->
+<div class="pdp-bar" data-bar inert>
+  <div class="pdp-bar__info">
+    <p class="pdp-bar__name" data-bar-name></p>
+    <p class="pdp-bar__meta"><span data-bar-price></span><span aria-hidden="true"> · </span><span data-bar-size>Select a size</span></p>
+  </div>
+  <button class="btn" type="button" data-bar-add>Add to bag</button>
+</div>
+
+<!-- Confirmation: slides out from under the header, hides itself -->
+<div class="added" data-added role="region" aria-labelledby="added-title" inert>
+  <div class="added__head">
+    <p class="label" id="added-title">Added to your bag</p>
+    <button type="button" class="added__x" data-added-close aria-label="Close"><span class="x" aria-hidden="true"></span></button>
+  </div>
+  <div class="added__item">
+    <img data-added-img alt="" width="600" height="800">
+    <div class="added__txt">
+      <p class="added__name" data-added-name></p>
+      <p class="added__meta" data-added-meta></p>
+    </div>
+  </div>
+  <div class="added__act">
+    <a class="btn" href="#bag">View bag</a>
+    <button type="button" class="btn btn--ghost" data-added-close>Continue</button>
+  </div>
+</div>
+<p class="vh" role="status" data-live></p>
+
+<dialog class="dr" data-sizeguide aria-labelledby="sg-title" aria-modal="true">
+  <div class="dr__scrim" data-close></div>
+  <div class="dr__panel">
+    <header class="dr__head">
+      <h2 class="title" id="sg-title">Size Guide</h2>
+      <button type="button" class="dr__x" data-close aria-label="Close size guide">Close<span class="x" aria-hidden="true"></span></button>
+    </header>
+    <div class="dr__body">
+      <p class="sg-note">Sample chart for the mockup. His own measurements load from his size guide.</p>
+      <table class="sg-table">
+        <caption class="vh">Jacket sizes, sample chart</caption>
+        <thead><tr><th scope="col">Size</th><th scope="col">IT</th><th scope="col">Chest, in</th><th scope="col">Chest, cm</th></tr></thead>
+        <tbody data-sg-rows></tbody>
+      </table>
+      <a class="link sg-mtm" href="made-to-measure.html#request">Request Made to Measure</a>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="viewer" data-viewer aria-label="Product images" aria-modal="true">
+  <img class="viewer__img" data-viewer-img data-close alt="" width="1333" height="2000">
+  <button type="button" class="viewer__x" data-close>Close<span class="x" aria-hidden="true"></span></button>
+  <button type="button" class="viewer__nav viewer__nav--prev" data-viewer-step="-1" aria-label="Previous image"></button>
+  <button type="button" class="viewer__nav viewer__nav--next" data-viewer-step="1" aria-label="Next image"></button>
+  <p class="viewer__count label" data-viewer-count aria-live="polite"></p>
+</dialog>
+
+<script src="assets/js/catalog.js"></script>
+<script>
+  /* Active nav item follows the piece's department (set before maison.js builds the header). */
+  (() => {
+    const p = PH.product(new URLSearchParams(location.search).get('id')) || PH.products[0];
+    document.body.dataset.page = PH.menu.shoes.items.some(([k]) => k === p.cat) ? 'shoes' : 'rtw';
+  })();
+</script>
+<script src="assets/js/maison.js"></script>
+<script src="assets/js/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+/* Home: film first (shown whole), then the collection in two tall frames, the line on clean ground, the roster
+   in a strip, Made to Measure in the house color, new arrivals. */
+
+/* 01 Film: full width, pinned. The veil is the paper with his script cut out of it (mask-composite exclude);
+   scrolling scales the veil up and fades it, so the name opens onto the whole film. Reduced motion: the film, still. */
+.h-film{position:relative;height:250svh;background:var(--paper)}
+.h-film__stick{position:sticky;top:var(--header-h);height:calc(100svh - var(--header-h));overflow:clip}
+.h-film__frame{position:absolute;inset:0;background:#0f0d0e;transform:scale(1.12);will-change:transform}
+.h-film__poster,.h-film__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.h-film__video{opacity:0;transition:opacity 700ms var(--ease-out)}
+.h-film.is-playing .h-film__video{opacity:1}
+.h-film__veil{
+  position:absolute;inset:-2px;z-index:1;background:var(--paper);
+  -webkit-mask-image:url("../img/pharoah-script.svg"),linear-gradient(#000 0 0);
+  -webkit-mask-position:50% 47%,0 0;-webkit-mask-size:min(86vw,1400px) auto,100% 100%;-webkit-mask-repeat:no-repeat;
+  -webkit-mask-composite:xor;
+  mask-image:url("../img/pharoah-script.svg"),linear-gradient(#000 0 0);
+  mask-position:50% 47%,0 0;mask-size:min(86vw,1400px) auto,100% 100%;mask-repeat:no-repeat;
+  mask-composite:exclude;
+}
+@media (max-width:767px){.h-film__veil{-webkit-mask-size:94vw auto,100% 100%;mask-size:94vw auto,100% 100%}}
+.h-film__toggle{position:absolute;right:16px;bottom:16px;z-index:2;display:grid;place-items:center;width:44px;height:44px;border:1px solid rgb(251 250 248 / .5);border-radius:50%;background:rgb(20 18 19 / .35);color:var(--paper);cursor:pointer;opacity:0;transition:background-color 200ms var(--ease-out),opacity 300ms var(--ease-out),transform 160ms var(--ease-out)}
+.h-film.is-open .h-film__toggle{opacity:1}
+.h-film__toggle[hidden]{display:none}
+@media (hover:hover){.h-film__toggle:hover{background:rgb(20 18 19 / .6)}}
+.h-film__toggle:active{transform:scale(.95)}
+.h-film__toggle span{position:relative;width:10px;height:12px}
+.h-film__toggle span::before,.h-film__toggle span::after{content:"";position:absolute;top:0;width:5px;height:100%;background:currentColor;transition:clip-path 200ms var(--ease-out)}
+.h-film__toggle span::before{left:0;clip-path:polygon(0 0,66% 0,66% 100%,0 100%)}
+.h-film__toggle span::after{left:5px;clip-path:polygon(34% 0,100% 0,100% 100%,34% 100%)}
+.h-film.is-paused .h-film__toggle span::before{clip-path:polygon(0 0,100% 25%,100% 75%,0 100%)}
+.h-film.is-paused .h-film__toggle span::after{clip-path:polygon(0 25%,100% 50%,100% 50%,0 75%)}
+.h-film__bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 32px;min-height:56px;padding-block:14px}
+.h-film__links{display:flex;gap:28px}
+.h-film.is-static{height:auto}
+.h-film.is-static .h-film__stick{position:relative;top:auto;height:auto;aspect-ratio:16/9}
+.h-film.is-static .h-film__frame{transform:none}
+.h-film.is-static .h-film__veil{display:none}
+.h-film.is-static .h-film__toggle{opacity:1}
+
+/* 02 Split */
+.h-split{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.h-split__tile{position:relative;display:block;aspect-ratio:2/3;overflow:clip;background:var(--paper-2);color:var(--paper)}
+.h-split__tile img{width:100%;height:100%;object-fit:cover;transition:transform 1400ms var(--ease-out)}
+@media (hover:hover){.h-split__tile:hover img{transform:scale(1.025)}}
+.h-split__cap{position:absolute;left:0;right:0;bottom:0;display:grid;justify-items:center;gap:10px;padding:48px 16px 32px;background:linear-gradient(to top,rgb(20 18 19 / .45),transparent)}
+@media (max-width:767px){.h-split{grid-template-columns:1fr}.h-split__tile{aspect-ratio:4/5}}
+
+/* Section heads */
+.h-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 32px;margin-bottom:28px}
+.h-head .display span{display:block}
+
+/* 03 Ready-to-wear: a rail that starts on the content edge and runs off the right of the screen */
+.h-rtw{padding-block:clamp(72px,9vw,128px)}
+.h-rail{--edge:max(var(--gutter),calc((100vw - var(--max)) / 2 + var(--gutter)));display:flex;gap:clamp(8px,1.2vw,18px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);padding:0 var(--edge) 8px;scrollbar-width:none;overscroll-behavior-x:contain}
+.h-rail::-webkit-scrollbar{display:none}
+.h-rail:focus-visible{outline-offset:-2px}
+.h-rail .h-cat{position:relative;flex:none;width:clamp(240px,26vw,420px);scroll-snap-align:start}
+.h-rail .h-cat .tag{left:10px;top:10px}
+.h-rail .h-cat img{aspect-ratio:2/3;object-position:50% 50%} /* full length: head to shoes, uncropped */
+.h-rail-ctl{display:flex;align-items:center;gap:10px}
+.h-rail-ctl .link{margin-right:10px}
+.h-rail-note{margin-right:14px}
+@media (max-width:767px){.h-rail-note{display:none}}
+.h-rail-ctl button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:none;color:var(--ink);cursor:pointer;transition:border-color 200ms var(--ease-out),opacity 200ms var(--ease-out),transform 160ms var(--ease-out)}
+.h-rail-ctl button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+@media (hover:hover){.h-rail-ctl button:hover{border-color:var(--ink)}}
+.h-rail-ctl button:active{transform:scale(.95)}
+.h-rail-ctl button:disabled{opacity:.3;cursor:default}
+@media (max-width:767px){.h-rail .h-cat{width:68vw}.h-rail-ctl button{display:none}}
+.h-cat{display:grid;gap:14px}
+.h-cat img{aspect-ratio:3/4;width:100%;object-fit:cover;object-position:50% 20%;background:var(--paper-2);transition:transform 900ms var(--ease-out)}
+.h-cat{overflow:clip}
+@media (hover:hover){.h-cat:hover img{transform:scale(1.02)}}
+
+/* 04 Players strip */
+.h-players{padding-bottom:clamp(72px,9vw,128px)}
+.h-strip{display:flex;gap:clamp(8px,1vw,14px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--gutter) 12px;scrollbar-width:none}
+.h-strip::-webkit-scrollbar{display:none}
+.h-strip a{flex:none;width:clamp(220px,22vw,330px);scroll-snap-align:start;display:grid;gap:10px}
+.h-strip img{aspect-ratio:5/7;width:100%;object-fit:cover;background:var(--paper-2)}
+.h-strip .card__name{display:block}
+
+/* 05 Made to Measure */
+.h-mtm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:var(--oxblood);color:var(--bone)}
+.h-mtm__copy{display:grid;align-content:center;gap:22px;padding:clamp(48px,7vw,112px) var(--gutter)}
+.h-mtm__line{max-width:36ch;font-size:15px;color:rgb(242 233 226 / .85)}
+.h-mtm__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.h-mtm__ghost{border-color:var(--bone);color:var(--bone)}
+.h-mtm__ghost:hover{background:var(--bone);color:var(--oxblood)}
+.h-mtm__media{min-height:100%}
+.h-mtm__media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5}
+@media (max-width:899px){.h-mtm{grid-template-columns:1fr}.h-mtm__media{order:-1}}
+
+/* 06 New in */
+.h-new{padding-block:clamp(72px,9vw,128px)}
+.h-new__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.4vw,20px)}
+@media (max-width:767px){.h-new__grid{grid-template-columns:1fr 1fr}}

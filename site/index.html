@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pharoah · New York</title>
+  <meta name="robots" content="noindex">
+  <link rel="preload" href="assets/video/pharoah-bw-wide.webp" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/maison.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body data-page="home">
+  <div data-site-header></div>
+
+  <main id="main">
+    <!-- 01 The film, full width. On arrival his name is cut out of the paper and the film plays inside the letters;
+         scrolling opens the name until the film fills the screen, held while it plays, then the page moves on. -->
+    <section class="h-film" data-filmscroll aria-label="Pharoah, New York: the film">
+      <div class="h-film__stick">
+        <div class="h-film__frame" data-film-frame>
+          <img class="h-film__poster" src="assets/video/pharoah-bw-wide.webp" alt="" width="1920" height="1080" fetchpriority="high">
+          <video class="h-film__video" data-film muted loop playsinline preload="none" aria-hidden="true"
+            data-wide="assets/video/pharoah-bw-wide.mp4" data-phone="assets/video/pharoah-bw-wide-720.mp4"></video>
+        </div>
+        <div class="h-film__veil" data-film-veil aria-hidden="true"></div>
+        <button class="h-film__toggle" type="button" data-film-toggle aria-label="Pause the film" hidden><span aria-hidden="true"></span></button>
+      </div>
+    </section>
+    <div class="h-film__bar wrap">
+      <p class="label">Fall-Winter 2026</p>
+      <div class="h-film__links">
+        <a class="link" href="highlights.html">Discover the collection</a>
+        <a class="link" href="collection.html?c=rtw">Shop ready-to-wear</a>
+      </div>
+    </div>
+
+    <!-- 02 The collection: two tall frames, Prada's split -->
+    <section class="h-split" aria-label="Fall-Winter 2026">
+      <a class="h-split__tile rv" href="highlights.html#shop">
+        <img src="assets/img/look-teal-mirror.jpg" alt="A man in a teal double-breasted suit beside a gilt mirror" width="1333" height="2000" loading="lazy">
+        <span class="h-split__cap"><span class="label">The Collection</span><span class="link">Shop the looks</span></span>
+      </a>
+      <a class="h-split__tile rv" href="highlights.html#lookbook" style="--d:1">
+        <img src="assets/img/look-navy-stripe.jpg" alt="A man buttoning a navy pinstripe double-breasted suit" width="1333" height="2000" loading="lazy">
+        <span class="h-split__cap"><span class="label">The Lookbook</span><span class="link">View the lookbook</span></span>
+      </a>
+    </section>
+
+    <!-- 03 Ready-to-wear: every category in a rail that scrolls right (his ask, 11/11) -->
+    <section class="h-rtw" aria-labelledby="rtw-title">
+      <div class="wrap h-head">
+        <h2 class="display" id="rtw-title">Ready-to-wear, <span>cut for the walk in.</span></h2>
+        <div class="h-rail-ctl">
+          <span class="label label--2 h-rail-note">Concept edits</span>
+          <a class="link" href="collection.html?c=rtw">View all</a>
+          <button type="button" data-rail-prev aria-label="Scroll back" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" data-rail-next aria-label="Scroll forward"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="h-rail" data-rail tabindex="0" aria-label="Ready-to-wear categories">
+        <a class="h-cat" href="collection.html?c=suits-tuxedos"><img src="assets/img/look-blackdb-studio.jpg" alt="" width="1333" height="2000" loading="lazy"><span class="title">Suits &amp; Tuxedos</span></a>
+        <a class="h-cat" href="collection.html?c=leather-jackets"><img src="assets/img/rail-real/02-leather-jackets.webp" alt="" width="1000" height="1500" loading="lazy"><span class="title">Leather Jackets</span></a>
+        <a class="h-cat" href="collection.html?c=jackets"><img src="assets/img/look-zip-studio.jpg" alt="" width="1333" height="2000" loading="lazy"><span class="title">Jackets</span></a>
+        <a class="h-cat" href="collection.html?c=shirts"><img src="assets/img/rail-real/04-shirts.webp" alt="" width="1000" height="1500" loading="lazy"><span class="title">Shirts</span></a>
+        <a class="h-cat" href="collection.html?c=denim"><img src="assets/img/rail-real/05-denim.webp" alt="" width="1000" height="1500" loading="lazy"><span class="title">Denim</span></a>
+        <a class="h-cat" href="collection.html?c=shoes"><img src="assets/img/rail-real/06-shoes.webp" alt="" width="1000" height="1500" loading="lazy"><span class="title">Shoes</span></a>
+        <a class="h-cat" href="collection.html?c=evening"><img src="assets/img/look-teal-studio.jpg" alt="" width="1333" height="2000" loading="lazy"><span class="title">Evening</span></a>
+        <a class="h-cat" href="collection.html?c=outerwear"><img src="assets/img/rail-real/08-outerwear.webp" alt="" width="1000" height="1500" loading="lazy"><span class="title">Outerwear</span></a>
+        <a class="h-cat" href="collection.html?c=pants-shorts"><img src="assets/img/rail-real/09-pants-shorts.webp" alt="" width="1000" height="1500" loading="lazy"><span class="title">Pants &amp; Shorts</span></a>
+      </div>
+    </section>
+
+    <!-- 04 Who wears Pharoah -->
+    <section class="h-players" aria-labelledby="players-title">
+      <div class="wrap h-head">
+        <div>
+          <p class="label label--2">Who Wears Pharoah</p>
+          <h2 class="display" id="players-title">Worn on game day.</h2>
+        </div>
+        <a class="link" href="players.html">Meet the roster</a>
+      </div>
+      <div class="h-strip" data-strip></div>
+    </section>
+
+    <!-- 05 Made to Measure: the house color, once on the page -->
+    <section class="h-mtm" aria-labelledby="mtm-title">
+      <div class="h-mtm__copy">
+        <p class="label">Made to Measure</p>
+        <h2 class="display display--xl" id="mtm-title">By private appointment.</h2>
+        <p class="h-mtm__line">Measured, fitted and finished for one man. In New York and on tour.</p>
+        <div class="h-mtm__actions">
+          <a class="btn btn--light" href="made-to-measure.html#request">Request an appointment</a>
+          <a class="btn btn--ghost h-mtm__ghost" href="made-to-measure.html#events">Upcoming events</a>
+        </div>
+      </div>
+      <figure class="h-mtm__media">
+        <img src="assets/img/look-blackdb-seated.jpg" alt="A man seated in a black double-breasted suit with ivory buttons" width="1333" height="2000" loading="lazy">
+      </figure>
+    </section>
+
+    <!-- 06 New in -->
+    <section class="h-new wrap" aria-labelledby="new-title">
+      <div class="h-head">
+        <h2 class="title" id="new-title">New In: Ready-to-Wear</h2>
+        <a class="link" href="collection.html?c=rtw">Shop all</a>
+      </div>
+      <div class="h-new__grid" data-new></div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/maison.js"></script>
+  <script src="assets/js/home.js"></script>
+</body>
+</html>

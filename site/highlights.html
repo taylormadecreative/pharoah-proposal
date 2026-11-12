@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fall-Winter 2026 · Highlights · Pharoah, New York</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/maison.css">
+<link rel="stylesheet" href="assets/css/highlights.css">
+</head>
+<body data-page="highlights">
+<div data-site-header></div>
+
+<main id="main">
+  <!-- The campaign film carries its own titles, so it plays whole at 16:9 with nothing on it but the pause button. -->
+  <section class="film" aria-label="Campaign film" data-tab-for="shop">
+    <div class="film__frame">
+      <img class="film__poster" src="assets/video/pharoah-hero.webp" srcset="assets/video/pharoah-hero-720.webp 1280w, assets/video/pharoah-hero.webp 1920w" sizes="100vw" width="1920" height="1080" alt="Opening frame of the Pharoah campaign film: a man in a navy pinstripe double-breasted suit fastens his jacket in a wood-paneled room." fetchpriority="high" decoding="async">
+      <video class="film__video" data-film muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+      <p class="vh">Titles in the film: Tailoring with a point of view. A New York house with a British silhouette. Worn on game day.</p>
+      <button class="film__toggle" type="button" data-film-toggle aria-label="Play the film">
+        <svg class="film__icon film__icon--pause" viewBox="0 0 12 12" aria-hidden="true"><rect x="2.25" y="1.5" width="2.25" height="9"/><rect x="7.5" y="1.5" width="2.25" height="9"/></svg>
+        <svg class="film__icon film__icon--play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.25 1.6v8.8L10.2 6z"/></svg>
+        <span class="film__word" data-film-word>Play</span>
+      </button>
+    </div>
+  </section>
+
+  <header class="intro wrap" data-tab-for="shop">
+    <h1 class="display intro__title"><span class="w" style="--i:0">Fall-Winter</span> <span class="w" style="--i:1">2026</span></h1>
+    <p class="intro__line">Every look from the season, and every piece in it.</p>
+  </header>
+
+  <nav class="tabs" aria-label="Fall-Winter 2026">
+    <div class="tabs__list" data-tabs>
+      <a class="tabs__link" href="#shop" data-tab>Shop<span class="tabs__more"> the Collection</span></a>
+      <a class="tabs__link" href="#lookbook" data-tab><span class="tabs__more">The </span>Lookbook</a>
+      <a class="tabs__link" href="#runway" data-tab><span class="tabs__more">The </span>Runway<span class="tabs__more"> Show</span></a>
+      <a class="tabs__link" href="#campaign" data-tab><span class="tabs__more">The </span>Campaign</a>
+      <span class="tabs__bar" data-tab-bar aria-hidden="true"></span>
+    </div>
+  </nav>
+
+  <section class="sec" id="shop" data-tab-for="shop" aria-labelledby="shop-title">
+    <div class="wrap">
+      <header class="sec__head">
+        <h2 class="sec__title" id="shop-title">Shop the Collection</h2>
+        <p class="sec__note">Choose a look to shop every piece in it.</p>
+      </header>
+      <ul class="shop" data-shop></ul>
+    </div>
+  </section>
+
+  <section class="sec" id="lookbook" data-tab-for="lookbook" aria-labelledby="lookbook-title">
+    <div class="wrap">
+      <header class="sec__head">
+        <h2 class="sec__title" id="lookbook-title">The Lookbook</h2>
+        <p class="sec__note">Press <span class="hint-plus" aria-hidden="true"></span><span class="vh">plus</span> on any look to see every piece in it.</p>
+      </header>
+      <ol class="lb" data-lookbook></ol>
+    </div>
+  </section>
+
+  <section class="sec" id="runway" data-tab-for="runway" aria-labelledby="runway-title">
+    <div class="wrap">
+      <header class="sec__head">
+        <h2 class="sec__title" id="runway-title">The Runway Show</h2>
+      </header>
+      <div class="frame rv wipe">
+        <img src="assets/video/pharoah-hero.webp" width="1920" height="1080" alt="" loading="lazy" decoding="async">
+        <span class="tag">Placeholder</span>
+        <p class="frame__label">Runway film arrives from Pharoah’s team</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--last" id="campaign" data-tab-for="campaign" aria-labelledby="campaign-title">
+    <div class="wrap">
+      <header class="sec__head">
+        <h2 class="sec__title" id="campaign-title">The Campaign</h2>
+      </header>
+      <div class="cg-wrap"><ul class="cg" data-campaign></ul></div>
+    </div>
+  </section>
+</main>
+
+<div data-site-footer></div>
+
+<!-- Shop-the-look drawer -->
+<div class="drawer" data-drawer>
+  <div class="drawer__scrim" data-drawer-close></div>
+  <section class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-describedby="drawer-kicker" tabindex="-1">
+    <header class="drawer__head">
+      <div>
+        <p class="label label--2" id="drawer-kicker" data-drawer-kicker>Look 01</p>
+        <h2 class="title drawer__title" id="drawer-title">Shop the look</h2>
+      </div>
+      <button class="drawer__close" type="button" data-drawer-close>Close<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+    </header>
+    <div class="drawer__body" data-drawer-body>
+      <ul class="drawer__list" data-drawer-list></ul>
+    </div>
+    <footer class="drawer__foot">
+      <a class="link" href="#lookbook" data-drawer-jump>See this look in the lookbook</a>
+    </footer>
+  </section>
+</div>
+
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/maison.js"></script>
+<script src="assets/js/highlights.js"></script>
+</body>
+</html>

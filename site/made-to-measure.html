@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Made to Measure · Pharoah</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/css/maison.css">
+  <link rel="stylesheet" href="assets/css/mtm.css">
+</head>
+<body data-page="mtm">
+  <div data-site-header></div>
+
+  <main id="main">
+    <section class="m-hero">
+      <figure class="m-hero__media"><img src="assets/img/look-navy-stripe.jpg" alt="A man buttoning a navy pinstripe double-breasted suit in a wood-paneled room" width="1333" height="2000" fetchpriority="high"></figure>
+      <div class="m-hero__copy">
+        <p class="label">Made to Measure</p>
+        <h1 class="display display--xl">Cut for one man.</h1>
+        <p class="lede">Request a private appointment. The house measures you, fits you and finishes the piece for you alone.</p>
+        <div class="m-hero__actions">
+          <a class="btn" href="#request">Request an appointment</a>
+          <a class="btn btn--ghost" href="#events">Upcoming events</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="m-process wrap" id="process" aria-labelledby="process-title">
+      <h2 class="title" id="process-title">The Process</h2>
+      <ol class="m-steps">
+        <li class="rv"><span class="m-steps__no">01</span><h3 class="display">The consultation</h3><p>Your measurements, the fabric books, and the look you have in mind.</p></li>
+        <li class="rv" style="--d:1"><span class="m-steps__no">02</span><h3 class="display">The fitting</h3><p>A basted fitting, or a fitting in the near-finished garment for pinning and chalking.</p></li>
+        <li class="rv" style="--d:2"><span class="m-steps__no">03</span><h3 class="display">The finish</h3><p>Final alterations, then the piece is yours.</p></li>
+      </ol>
+    </section>
+
+    <section class="m-details" aria-label="In the details">
+      <img src="assets/img/detail-buttons.jpg" alt="Double-breasted buttons" width="925" height="411" loading="lazy">
+      <img src="assets/img/detail-cuff.jpg" alt="A jacket cuff" width="985" height="437" loading="lazy">
+      <img src="assets/img/detail-brooch.jpg" alt="A lapel brooch" width="900" height="400" loading="lazy">
+    </section>
+
+    <section class="m-request wrap" id="request" aria-labelledby="request-title">
+      <div class="m-request__intro">
+        <h2 class="display" id="request-title">Request a private appointment.</h2>
+        <p class="lede">Tell the house what you would like made. Requests that fit a commission are answered personally.</p>
+      </div>
+      <form class="m-form" data-mtm novalidate>
+        <div class="m-form__row">
+          <label class="m-field"><span class="label">First name</span><input name="first" autocomplete="given-name" required></label>
+          <label class="m-field"><span class="label">Last name</span><input name="last" autocomplete="family-name" required></label>
+        </div>
+        <div class="m-form__row">
+          <label class="m-field"><span class="label">Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label class="m-field"><span class="label">Phone</span><input name="phone" type="tel" autocomplete="tel"></label>
+        </div>
+        <div class="m-form__row">
+          <label class="m-field"><span class="label">City for your appointment</span>
+            <select name="city" required data-city>
+              <option value="">Choose a city</option>
+              <option>Dallas</option><option>New York</option><option>Los Angeles</option><option>Atlanta</option><option>Another city</option>
+            </select>
+          </label>
+          <label class="m-field"><span class="label">What would you like made?</span>
+            <select name="piece" required>
+              <option value="">Choose a piece</option>
+              <option>Suit</option><option>Tuxedo</option><option>Jacket</option><option>Overcoat</option><option>Shirts</option><option>Something else</option>
+            </select>
+          </label>
+        </div>
+        <div class="m-form__row">
+          <label class="m-field"><span class="label">Occasion and date</span><input name="occasion" placeholder="A wedding in June, draft night, a red carpet"></label>
+          <label class="m-field"><span class="label">Your budget</span>
+            <select name="budget" required data-budget>
+              <option value="">Choose a range</option>
+              <option value="low">Under $2,500</option>
+              <option value="mid">$2,500 to $5,000</option>
+              <option value="high">$5,000 to $10,000</option>
+              <option value="top">$10,000 and above</option>
+            </select>
+            <span class="m-note">Sample ranges for the mockup. The house sets its minimum.</span>
+          </label>
+        </div>
+        <div class="m-steer" data-steer hidden role="status">
+          <p>Made to Measure begins above this range. The house's ready-to-wear is cut to the same standard and ready now.</p>
+          <a class="link" href="collection.html?c=rtw">Shop ready-to-wear</a>
+        </div>
+        <label class="m-field"><span class="label">Anything else</span><textarea name="note" rows="3" placeholder="References, sizes you wear now, the look you want"></textarea></label>
+        <p class="m-error" data-error hidden role="alert">Please complete the fields marked above.</p>
+        <button class="btn" type="submit">Send request</button>
+      </form>
+      <div class="m-done" data-done hidden tabindex="-1">
+        <picture class="m-done__mark" aria-hidden="true"><source srcset="assets/img/stallions-still.png" media="(prefers-reduced-motion: reduce)"><img src="assets/img/stallions-run.gif" alt="" width="160" height="159"></picture>
+        <h3 class="display">Thank you.</h3>
+        <p class="lede">Your request is with the house.</p>
+      </div>
+    </section>
+
+    <section class="m-events" id="events" aria-labelledby="events-title">
+      <div class="wrap">
+        <div class="m-events__head">
+          <h2 class="display" id="events-title">Upcoming events.</h2>
+          <p class="m-events__lede">The house travels for private appointments. Dates are announced here first.</p>
+        </div>
+        <ul class="m-events__list">
+          <li class="rv"><span class="m-events__city">Dallas</span><span class="m-events__what">Private appointments</span><span class="m-events__when">Dates to be announced</span><button class="link" type="button" data-pick="Dallas">Request this city</button></li>
+          <li class="rv"><span class="m-events__city">New York</span><span class="m-events__what">Private appointments</span><span class="m-events__when">Dates to be announced</span><button class="link" type="button" data-pick="New York">Request this city</button></li>
+          <li class="rv"><span class="m-events__city">Los Angeles</span><span class="m-events__what">Private appointments</span><span class="m-events__when">Dates to be announced</span><button class="link" type="button" data-pick="Los Angeles">Request this city</button></li>
+          <li class="rv"><span class="m-events__city">Atlanta</span><span class="m-events__what">Private appointments</span><span class="m-events__when">Dates to be announced</span><button class="link" type="button" data-pick="Atlanta">Request this city</button></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/maison.js"></script>
+  <script src="assets/js/mtm.js"></script>
+</body>
+</html>

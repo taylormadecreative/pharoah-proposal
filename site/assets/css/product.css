@@ -1,0 +1,242 @@
+/* Pharoah · Product page. Page layer on top of maison.css.
+   Desktop: every photo stacked full width on the left (about 60%), the buying panel sticky on the right.
+   Phone: a swipe gallery with a counter, details below, a bottom bar that keeps price and Add to bag in reach. */
+
+html{scrollbar-gutter:stable}
+html.is-locked{overflow:hidden}
+main:focus{outline:none}
+[hidden]{display:none!important}
+/* The shared mega menu cannot open below 1024px (its triggers are hidden there), but its grid still widens the
+   phone layout viewport to ~444px. Take it out of layout on small screens. (Same fix suggested for maison.css.) */
+@media (max-width:1023px){.mega{display:none}}
+
+/* ---------- Layout ---------- */
+.pdp{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"gallery" "panel" "worn"}
+.pdp-gallery{grid-area:gallery;position:relative;min-width:0}
+.pdp-panel{grid-area:panel;min-width:0}
+.pdp-worn{grid-area:worn;min-width:0}
+
+/* ---------- Gallery ---------- */
+.pdp-track{display:grid;gap:2px}
+.pdp-fig{position:relative;margin:0;background:var(--paper-2)}
+.pdp-fig.is-tall{aspect-ratio:2/3;background:var(--bone)} /* his cut-out looks sit on bone */
+.pdp-zoom{display:block;width:100%;height:100%;margin:0;padding:0;border:0;background:none;cursor:zoom-in}
+.pdp-zoom img{width:100%;height:auto}
+.pdp-fig.is-tall img{height:100%;object-fit:contain}
+.pdp-zoom:focus-visible{outline-offset:-5px}
+.pdp-counter{display:none}
+
+/* ---------- Panel ---------- */
+.pdp-panel__in{padding:24px var(--gutter) 8px}
+.crumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px}
+.crumbs li{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.crumbs li + li::before{content:"/";font-weight:400;letter-spacing:0;opacity:.6}
+.crumbs a{transition:color 160ms var(--ease-out)}
+.crumbs a:hover{color:var(--ink)}
+
+.pdp-name{margin-top:16px;font-size:clamp(17px,1.4vw,21px);font-weight:500;line-height:1.3;letter-spacing:.12em;text-transform:uppercase;text-wrap:balance}
+.pdp-price{margin-top:8px;font-size:14px;letter-spacing:.04em}
+
+.pdp-form{display:grid;gap:26px;margin-top:30px}
+.pdp-opt{position:relative;min-width:0;margin:0;padding:0;border:0}
+.pdp-opt__k{float:left;width:100%;margin-bottom:10px;padding:0;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.pdp-opt__k ~ *{clear:both}
+.pdp-opt__v{margin-left:8px;font-size:12px;font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--ink-2)}
+
+/* Color */
+.pdp-swatches{display:flex;flex-wrap:wrap;align-items:center;gap:0 2px;margin-left:-9px}
+.pdp-sw{position:relative;display:grid;place-items:center;width:44px;height:44px;cursor:pointer}
+.pdp-sw input,.pdp-size input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:inherit}
+.pdp-sw__dot{width:26px;height:26px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px rgb(20 18 19 / .18);transition:box-shadow 200ms var(--ease-out),transform 160ms var(--ease-out)}
+.pdp-sw:active .pdp-sw__dot{transform:scale(.98)}
+.pdp-sw input:checked + .pdp-sw__dot{box-shadow:inset 0 0 0 1px rgb(20 18 19 / .18),0 0 0 3px var(--paper),0 0 0 4px var(--ink)}
+.pdp-sw input:focus-visible + .pdp-sw__dot{outline:1.5px solid var(--ink);outline-offset:7px}
+.pdp-sw.is-soon{cursor:not-allowed}
+.pdp-sw.is-soon .pdp-sw__dot{opacity:.55;background:linear-gradient(to top right,transparent calc(50% - .75px),var(--paper) calc(50% - .75px),var(--paper) calc(50% + .75px),transparent calc(50% + .75px)),var(--sw)}
+.pdp-soon{margin-left:8px;font-size:12px;color:var(--ink-2)}
+
+/* Size */
+.pdp-guide{position:absolute;top:-12px;right:0;display:inline-flex;align-items:center;min-height:40px;padding:0;border:0;background:none;font-size:11px;letter-spacing:.06em;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;cursor:pointer;transition:color 160ms var(--ease-out)}
+.pdp-guide:hover{color:var(--ink)}
+.pdp-sizes{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.pdp-size{position:relative;display:block;cursor:pointer}
+.pdp-size span{display:grid;place-items:center;height:46px;border:1px solid var(--line);font-size:12px;letter-spacing:.04em;transition:border-color 160ms var(--ease-out),background-color 160ms var(--ease-out),color 160ms var(--ease-out),transform 160ms var(--ease-out)}
+@media (hover:hover){.pdp-size:hover span{border-color:var(--ink)}}
+.pdp-size:active span{transform:scale(.98)}
+.pdp-size input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.pdp-size input:focus-visible + span{outline:1.5px solid var(--ink);outline-offset:2px}
+.pdp-sizes.is-err .pdp-size span{border-color:rgb(20 18 19 / .55)}
+.pdp-err{font-size:12px;font-weight:500;letter-spacing:.02em}
+.pdp-err:not(:empty){margin-top:12px;animation:pdp-fade 220ms var(--ease-out)}
+@keyframes pdp-fade{from{opacity:0;transform:translateY(-3px)}}
+
+.pdp-add{margin-top:2px}
+.pdp-mtm{display:inline-block;margin-top:24px}
+
+/* Accordions (native details/summary) */
+.pdp-acc{margin-top:36px;border-bottom:1px solid var(--line)}
+.pdp-acc details{border-top:1px solid var(--line)}
+.pdp-acc summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px;list-style:none;cursor:pointer;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.pdp-acc summary::-webkit-details-marker{display:none}
+.pdp-acc summary:focus-visible{outline-offset:-2px}
+.pm{position:relative;width:11px;height:11px;flex:none}
+.pm::before,.pm::after{content:"";position:absolute;left:0;top:50%;width:100%;height:1px;background:currentColor;transition:transform 260ms var(--ease-out)}
+.pm::after{transform:rotate(90deg)}
+details[open] > summary .pm::after{transform:rotate(0)}
+.pdp-acc__c{display:grid;justify-items:start;gap:12px;padding:0 0 22px;font-size:13px;line-height:1.6;color:var(--ink-2)}
+details[open] > .pdp-acc__c{animation:pdp-fade 260ms var(--ease-out)}
+.pdp-textbtn{min-height:32px;padding:0;border:0;background:none;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer}
+.pdp-textbtn:active,.pdp-guide:active{transform:scale(.98)}
+
+/* ---------- Worn on game day ---------- */
+.pdp-worn{padding:clamp(56px,6vw,96px) var(--gutter)}
+.pdp-worn__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 32px}
+.pdp-worn__name{margin-top:14px;font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(36px,3.8vw,60px);line-height:1;letter-spacing:-.01em}
+.pdp-worn__role{margin-top:12px}
+.pdp-worn__photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin-top:clamp(26px,3vw,40px)}
+.pdp-worn__photos a{display:block;aspect-ratio:5/7;overflow:clip;background:var(--paper-2)}
+.pdp-worn__photos img{width:100%;height:100%;object-fit:cover;transition:transform 900ms var(--ease-out)}
+@media (hover:hover){.pdp-worn__photos a:hover img{transform:scale(1.02)}}
+/* One or two photos: photos keep their size, the words sit in the free columns beside them */
+.pdp-worn.is-short{display:grid;align-items:end;gap:0 clamp(24px,3vw,48px)}
+.pdp-worn.is-n1{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+.pdp-worn.is-n2{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.pdp-worn.is-short .pdp-worn__photos{grid-template-columns:repeat(var(--n),minmax(0,1fr));margin-top:0}
+.pdp-worn.is-short .pdp-worn__head{flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:28px}
+
+/* ---------- You may also like ---------- */
+.pdp-more{padding:clamp(64px,7vw,112px) 0 clamp(72px,8vw,128px);border-top:1px solid var(--line)}
+.pdp-more__head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(22px,2.4vw,34px)}
+.pdp-more__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px 2px;max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.pdp-more__grid .card{gap:14px;align-content:start}
+.pdp-more__grid .card__body{padding-right:12px}
+
+/* ---------- Added to bag: slides out from under the header ---------- */
+.added{position:fixed;top:var(--header-h);right:0;z-index:99;width:min(400px,100%);padding:18px 24px 24px;background:var(--paper);border:1px solid var(--line);border-top:0;transform:translateY(-100%);visibility:hidden;transition:transform 280ms var(--ease-out),visibility 0s linear 280ms}
+.added.is-on{transform:none;visibility:visible;transition:transform 280ms var(--ease-out),visibility 0s}
+.added__head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.added__x{display:grid;place-items:center;width:44px;height:44px;margin-right:-14px;padding:0;border:0;background:none;cursor:pointer}
+.added__x:active{transform:scale(.98)}
+.added__item{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:center;margin-top:10px}
+.added__item img{width:72px;aspect-ratio:3/4;height:auto;object-fit:cover;background:var(--paper-2)}
+.added__name{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.added__meta{margin-top:4px;font-size:12px;color:var(--ink-2)}
+.added__act{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.added__act .btn{padding-inline:12px}
+
+/* ---------- Drawer (size guide): native dialog, right side; full-screen sheet on phones ---------- */
+.dr{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden}
+.dr::backdrop{background:transparent}
+.dr__scrim{position:absolute;inset:0;background:rgb(20 18 19 / .32);opacity:0;transition:opacity 260ms var(--ease-out)}
+.dr__panel{position:absolute;top:0;right:0;bottom:0;display:flex;flex-direction:column;width:min(480px,100%);background:var(--paper);transform:translateX(100%);transition:transform 280ms var(--ease-out)}
+.dr.is-open .dr__scrim{opacity:1}
+.dr.is-open .dr__panel{transform:none}
+.dr__head{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:0 28px;border-bottom:1px solid var(--line)}
+.dr__x,.viewer__x{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;background:none;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.dr__x:active,.viewer__x:active{transform:scale(.98)}
+.dr__body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:24px 28px 32px}
+.x{position:relative;display:inline-block;width:9px;height:9px;flex:none}
+.x::before,.x::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;background:currentColor;transform:translate(-50%,-50%) rotate(45deg)}
+.x::after{transform:translate(-50%,-50%) rotate(-45deg)}
+
+.sg-note{font-size:13px;color:var(--ink-2)}
+.sg-table{width:100%;margin-top:22px;border-collapse:collapse;table-layout:fixed;font-size:12px;font-variant-numeric:tabular-nums}
+.sg-table th{padding:0 0 12px;border-bottom:1px solid var(--ink);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-align:left}
+.sg-table td{padding:13px 0;border-bottom:1px solid var(--line)}
+.sg-table tr.is-on td{font-weight:500}
+.sg-table tr.is-on td:first-child{box-shadow:inset 2px 0 0 var(--ink);padding-left:10px}
+.sg-mtm{display:inline-block;margin-top:28px}
+
+/* ---------- Full-screen image viewer ---------- */
+.viewer{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--paper);color:var(--ink);overflow:hidden;opacity:0;transition:opacity 220ms var(--ease-out)}
+.viewer::backdrop{background:transparent}
+.viewer.is-open{opacity:1}
+.viewer__img{position:absolute;inset:0;width:100%;height:100%;padding:64px clamp(16px,6vw,96px) 56px;object-fit:contain;cursor:zoom-out;transition:opacity 200ms var(--ease-out)}
+.viewer__img.is-swap{opacity:0}
+.viewer__x{position:absolute;top:10px;right:var(--gutter)}
+.viewer__count{position:absolute;left:var(--gutter);bottom:18px;margin:0}
+.viewer__nav{position:absolute;top:50%;width:56px;height:56px;margin-top:-28px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer}
+.viewer__nav::before{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;border-left:1px solid currentColor;border-bottom:1px solid currentColor;transform:translate(-25%,-50%) rotate(45deg)}
+.viewer__nav--prev{left:max(4px,calc(var(--gutter) - 16px))}
+.viewer__nav--next{right:max(4px,calc(var(--gutter) - 16px))}
+.viewer__nav--next::before{transform:translate(-75%,-50%) rotate(-135deg)}
+.viewer__nav:active{transform:scale(.98)}
+
+/* ---------- Phone bar (hidden on desktop) ---------- */
+.pdp-bar{display:none}
+
+/* ---------- Desktop ---------- */
+@media (min-width:1024px){
+  .pdp{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);grid-template-areas:"gallery panel" "worn panel";max-width:1920px;margin-inline:auto}
+  .pdp-panel{position:sticky;top:var(--panel-top,var(--header-h));align-self:start}
+  .pdp-panel__in{width:min(100%,520px);margin-inline:auto;padding:clamp(40px,4vw,64px) clamp(32px,3.4vw,48px) 56px}
+}
+
+/* ---------- Tablet and phone: swipe gallery ---------- */
+@media (max-width:1023px){
+  .pdp-gallery{background:var(--paper-2)}
+  .pdp-track{display:flex;gap:2px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .pdp-track::-webkit-scrollbar{display:none}
+  .pdp-fig{flex:0 0 100%;aspect-ratio:2/3;scroll-snap-align:start;scroll-snap-stop:always}
+  .pdp-zoom img{height:100%;object-fit:cover}
+  .pdp-fig.is-wide img,.pdp-fig.is-tall img{object-fit:contain}
+  .pdp-fig.is-wide{background:var(--ink)} /* a detail sits on a dark plate, not a stripe on beige */
+  .pdp-counter{position:absolute;right:12px;bottom:12px;display:block;margin:0;padding:6px 10px;background:rgb(251 250 248 / .9);font-size:11px;font-weight:500;letter-spacing:.14em;font-variant-numeric:tabular-nums;pointer-events:none}
+  .pdp-panel__in{width:min(100%,600px);margin-inline:auto}
+
+  .pdp-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;align-items:center;gap:14px;padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));background:var(--paper);border-top:1px solid var(--line);transform:translateY(100%);transition:transform 260ms var(--ease-out)}
+  .pdp-bar.is-on{transform:none}
+  .pdp-bar__info{flex:1;min-width:0}
+  .pdp-bar__name{overflow:hidden;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;text-overflow:ellipsis}
+  .pdp-bar__meta{margin-top:2px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+  .pdp-bar .btn{flex:none;min-width:148px;min-height:48px;padding-inline:20px}
+  /* The mockup flag rides above the bar, on the right, so it never sits on the price */
+  .sample-flag{left:auto;right:12px;transition:transform 260ms var(--ease-out)}
+  body.has-bar .sample-flag{transform:translateY(calc(-68px - env(safe-area-inset-bottom)))}
+  .ftr{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+
+  .pdp-more__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:640px) and (max-width:1023px){
+  .pdp-fig{flex-basis:calc(50% - 1px)}
+  .pdp-track.is-single .pdp-fig{flex-basis:100%;aspect-ratio:auto;height:min(80vh,860px)}
+  .pdp-track.is-single img{object-fit:contain}
+}
+@media (max-width:639px){
+  .pdp-panel__in{padding-top:22px}
+  .pdp-guide{top:-14px;min-height:44px}
+  .pdp-textbtn{min-height:44px}
+  /* 44px touch targets for small text links, without moving their underlines */
+  .crumbs a,.pdp-mtm,.sg-mtm,.pdp-worn .link,.pdp-more__head .link{position:relative}
+  .crumbs a::before,.pdp-mtm::before,.sg-mtm::before,.pdp-worn .link::before,.pdp-more__head .link::before{content:"";position:absolute;inset:-14px -6px}
+  .pdp-sizes{gap:5px}
+  .pdp-worn__photos{margin-inline:calc(var(--gutter) * -1)}
+  .pdp-worn.is-short .pdp-worn__photos{margin-inline:0}
+  .pdp-worn.is-n1{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px}
+  .pdp-worn.is-n1 .pdp-worn__name{font-size:30px}
+  .pdp-worn.is-n2{grid-template-columns:minmax(0,1fr)}
+  .pdp-worn.is-n2 .pdp-worn__head{order:-1;margin-bottom:24px}
+  .pdp-more__grid{padding-inline:0;row-gap:28px}
+  .pdp-more__grid .card{gap:12px}
+  .pdp-more__grid .card__body{padding-inline:var(--gutter) 10px}
+  .added{width:100%;border-inline:0}
+  .dr__panel{width:100%;transform:translateY(100%)}
+  .dr__head,.dr__body{padding-inline:var(--gutter)}
+  .viewer__img{padding:60px 0 52px}
+}
+
+/* Touch screens: a tapped button must not keep its hover look (shared .btn hover is not hover-gated) */
+@media (hover:none){
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .btn--ghost:hover{background:transparent;color:var(--ink)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .added,.added.is-on,.dr__scrim,.dr__panel,.viewer,.viewer__img,.pdp-bar,.sample-flag,.pm::before,.pm::after,.pdp-worn__photos img{transition:none}
+  .dr__panel{transform:none}
+  .dr:not(.is-open) .dr__panel{opacity:0}
+  .pdp-err:not(:empty),details[open] > .pdp-acc__c{animation:none}
+}
+
+/* Concept renders are labeled where the price is read */
+.pdp-concept{margin-top:6px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}

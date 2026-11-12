@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Wears Pharoah · Pharoah, New York</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/maison.css">
+<link rel="stylesheet" href="assets/css/players.css">
+</head>
+<body data-page="players">
+<div data-site-header></div>
+
+<main id="main">
+  <header class="r-intro wrap">
+    <div>
+      <p class="label">Who Wears Pharoah</p>
+      <h1 class="display display--xl r-intro__title"><span class="w" style="--i:0">Worn</span> <span class="w" style="--i:1">on</span> <span class="w" style="--i:2">game</span> <span class="w" style="--i:3">day.</span></h1>
+    </div>
+    <p class="r-intro__line">Players, broadcasters and the front office, dressed by the house.</p>
+  </header>
+
+  <section class="roster wrap" aria-labelledby="roster-title">
+    <h2 class="vh" id="roster-title">The roster</h2>
+    <div class="roster__bar">
+      <div class="chips" role="group" aria-label="Filter by role">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All <span class="chip__n" data-n="all"></span></button>
+        <button class="chip" type="button" data-filter="players" aria-pressed="false">Players <span class="chip__n" data-n="players"></span></button>
+        <button class="chip" type="button" data-filter="college" aria-pressed="false">College <span class="chip__n" data-n="college"></span></button>
+        <button class="chip" type="button" data-filter="air" aria-pressed="false">On Air &amp; Front Office <span class="chip__n" data-n="air"></span></button>
+      </div>
+      <p class="vh" role="status" data-roster-status></p>
+    </div>
+    <ul class="pcards roster__grid" data-roster></ul>
+  </section>
+</main>
+
+<div data-site-footer></div>
+<script src="assets/js/catalog.js"></script>
+<script src="assets/js/maison.js"></script>
+<script src="assets/js/players.js"></script>
+</body>
+</html>
