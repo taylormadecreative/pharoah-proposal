@@ -148,14 +148,15 @@
   const news = document.querySelector('[data-news]');
   if (news) news.addEventListener('submit', (e) => { e.preventDefault(); news.innerHTML = '<p class="label" style="padding:12px 0">Thank you. You are on the list.</p>'; try { localStorage.setItem('ph-letter', 'joined'); } catch (err) { /* private mode */ } });
 
-  /* The Pharoah Letter pop-up: email capture, centered over a dark backdrop, with his campaign photo. Once per visitor.
-     Never on Made to Measure (the request form), never in the first 8 s; then at 35% of the page or 25 s. #letter shows
-     it at once. Escape, the X or the backdrop closes it; while open the page can't scroll and Tab stays inside. */
+  /* The Pharoah Letter pop-up: email capture, centered over a dark backdrop, with his campaign photo. On the home page
+     it shows on EVERY visit, 2.5 s in. Elsewhere once per visitor, never on Made to Measure (the request form), never in
+     the first 8 s, then at 35% of the page or 25 s. #letter shows it at once. Escape, the X or the backdrop closes it; while open the page can't scroll and Tab stays inside. */
   (() => {
     const KEY = 'ph-letter';
     let seen = null; try { seen = localStorage.getItem(KEY); } catch (e) { /* private mode: once per page view */ }
+    const isHome = document.body.dataset.page === 'home';   // his call: the home page shows it on every visit
     const force = location.hash === '#letter';
-    if (!force && (seen || document.body.dataset.page === 'mtm')) return;
+    if (!force && !isHome && (seen || document.body.dataset.page === 'mtm')) return;
     const scrim = document.createElement('div');
     scrim.className = 'letter-scrim'; scrim.hidden = true;
     const el = document.createElement('div');
@@ -208,6 +209,7 @@
       remember('joined'); window.setTimeout(() => close('joined'), 2600);
     });
     if (force) { open(); return; }
+    if (isHome) { window.setTimeout(open, 2500); return; }   // after the name and the film register
     const t0 = Date.now();
     let timer = 0;
     const done = () => { window.clearTimeout(timer); window.removeEventListener('scroll', onScroll); };
