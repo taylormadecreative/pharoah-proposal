@@ -147,7 +147,47 @@
 
   /* Newsletter (demo) */
   const news = document.querySelector('[data-news]');
-  if (news) news.addEventListener('submit', (e) => { e.preventDefault(); news.innerHTML = '<p class="label" style="padding:12px 0">Thank you. You are on the list.</p>'; });
+  if (news) news.addEventListener('submit', (e) => { e.preventDefault(); news.innerHTML = '<p class="label" style="padding:12px 0">Thank you. You are on the list.</p>'; try { localStorage.setItem('ph-letter', 'joined'); } catch (err) { /* private mode */ } });
+
+  /* The Pharoah Letter pop-up: email capture, kept quiet. A small card, no backdrop, once per visitor. Never on Made to
+     Measure (the request form), never in the first 8 s; then at 35% of the page or 25 s. #letter shows it at once. */
+  (() => {
+    const KEY = 'ph-letter';
+    let seen = null; try { seen = localStorage.getItem(KEY); } catch (e) { /* private mode: once per page view */ }
+    const force = location.hash === '#letter';
+    if (!force && (seen || document.body.dataset.page === 'mtm')) return;
+    const el = document.createElement('aside');
+    el.className = 'letter'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-labelledby', 'letter-title'); el.hidden = true;
+    el.innerHTML = `
+      <button class="letter__x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <p class="label">The Pharoah Letter</p>
+      <h2 class="display" id="letter-title">First to the new collection.</h2>
+      <p class="letter__lede">New pieces, runway shows and where the house will be next.</p>
+      <form class="letter__form" novalidate><label class="vh" for="letter-email">Email</label><input id="letter-email" type="email" placeholder="Email address" autocomplete="email" required><button type="submit">Join</button></form>
+      <p class="letter__fine">Unsubscribe anytime.</p>`;
+    document.body.appendChild(el);
+    const remember = (v) => { try { localStorage.setItem(KEY, v); } catch (e) { /* ignore */ } };
+    let back = null;
+    const open = () => { if (!el.hidden) return; back = document.activeElement; el.hidden = false; requestAnimationFrame(() => el.classList.add('is-in')); };
+    const close = (v) => { el.classList.remove('is-in'); remember(v); window.setTimeout(() => { el.hidden = true; }, reduce ? 0 : 240); if (el.contains(document.activeElement) && back && back.focus) back.focus(); };
+    el.querySelector('.letter__x').addEventListener('click', () => close('dismissed'));
+    el.addEventListener('keydown', (e) => { if (e.key === 'Escape') close('dismissed'); });
+    el.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = el.querySelector('input');
+      if (!input.value || !input.checkValidity()) { input.setAttribute('aria-invalid', 'true'); input.focus(); return; }
+      el.querySelector('form').outerHTML = '<p class="letter__done" role="status">Thank you. You are on the list.</p>';
+      el.querySelector('.letter__fine').remove();
+      remember('joined'); window.setTimeout(() => close('joined'), 2600);
+    });
+    if (force) { open(); return; }
+    const t0 = Date.now();
+    let timer = 0;
+    const done = () => { window.clearTimeout(timer); window.removeEventListener('scroll', onScroll); };
+    const onScroll = () => { const h = document.documentElement.scrollHeight - innerHeight; if (Date.now() - t0 > 8000 && h > 0 && scrollY / h > 0.35) { open(); done(); } };
+    timer = window.setTimeout(() => { open(); done(); }, 25000);
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
 
   /* Reveals */
   PH.reveal = (scope = document) => {

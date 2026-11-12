@@ -154,7 +154,25 @@ ul,ol{padding:0;list-style:none}
 .rv{opacity:0;transform:translateY(18px);transition:opacity 800ms var(--ease-out),transform 900ms var(--ease-out)}
 .rv.in{opacity:1;transform:none}
 html.no-js .rv{opacity:1;transform:none}
+/* The Pharoah Letter: a small card in the corner, no backdrop, never blocks the page */
+.letter{position:fixed;right:24px;bottom:24px;z-index:160;width:min(380px,calc(100vw - 32px));padding:30px 28px 22px;background:var(--paper);color:var(--ink);border:1px solid var(--line);box-shadow:0 22px 52px -20px rgb(20 18 19 / .32);opacity:0;transform:translateY(14px);transition:opacity 320ms var(--ease-out),transform 320ms var(--ease-out)}
+.letter.is-in{opacity:1;transform:none}
+.letter .display{font-size:clamp(28px,2.4vw,34px);line-height:1.06;margin:12px 0 10px}
+.letter__lede{max-width:30ch;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.letter__form{display:flex;margin-top:20px;border-bottom:1px solid var(--ink)}
+.letter__form input{flex:1;min-width:0;border:0;background:none;padding:12px 0;font-size:13px;color:var(--ink)}
+.letter__form input:focus{outline:none}
+.letter__form input[aria-invalid=true]::placeholder{color:var(--oxblood)}
+.letter__form button{border:0;background:none;padding:0 0 0 12px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer}
+@media (hover:hover){.letter__form button:hover{color:var(--oxblood)}}
+.letter__fine{margin-top:12px;font-size:11px;color:var(--ink-2)}
+.letter__done{margin-top:20px;font-size:13px}
+.letter__x{position:absolute;top:8px;right:8px;display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;background:none;color:var(--ink);cursor:pointer}
+.letter__x svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4}
+.letter__x:active{transform:scale(.94)}
+@media (max-width:599px){.letter{left:12px;right:12px;bottom:12px;width:auto;padding:26px 20px 18px}}
 @media (prefers-reduced-motion:reduce){
   .rv{opacity:1;transform:none;transition:none}
-  .mega,.mnav,.scrim,.hdr{transition:none}
+  .mega,.mnav,.scrim,.hdr,.letter{transition:none}
+  .letter{transform:none}
 }
